@@ -334,7 +334,8 @@ async def help( ctx, amount = 1 ):
 	emb.add_field( name = '{}8ball'.format( PREFIX ), value= 'Шар предсказаний.' )
 	emb.add_field( name = '{}ping'.format( PREFIX ), value= 'Узнать задержку бота.' )
 	emb.add_field( name = '{}slot'.format( PREFIX ), value= 'Казино.' )
-	emb.set_footer( text = 'Всего команд: 19' )
+	emb.add_field( name = '{}abc'.format( PREFIX ), value= 'Алфавит.' )
+	emb.set_footer( text = 'Всего команд: 20' )
 
 
 	await ctx.send( embed = emb )

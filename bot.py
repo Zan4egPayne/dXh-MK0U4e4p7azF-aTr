@@ -58,7 +58,7 @@ async def invite ( ctx ):
 	emb.set_footer( text="Ссылка была отправлена в лс." )
 	emb.set_author( name=Bot.user.name, url="https://discord.com/api/oauth2/authorize?client_id=725379044845027329&permissions=8&scope=bot" )
 	await ctx.send( embed = emb )
-	await ctx.author.send ('https://discord.com/api/oauth2/authorize?client_id=725379044845027329&permissions=8&scope=bot')
+	await ctx.author.send ('https://discord.bots.gg/bots/724699992199004281')
 
 
 

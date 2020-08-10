@@ -8,7 +8,6 @@ import asyncio
 import socket
 import datetime
 from datetime import timedelta
-import requests
 import os
 
 

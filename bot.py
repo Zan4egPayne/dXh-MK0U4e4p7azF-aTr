@@ -239,7 +239,7 @@ async def slot(ctx):
     else:
         await ctx.send(embed=discord.Embed.from_dict({"title":"Казино", "description":f"{slotmachine} Нет совпадения, вы проиграли"}))
 	
-@Alucard.command()
+@Bot.command()
 async def abc(ctx): # b'\xfc'
     await ctx.message.delete()
     ABC = ['а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'ъ', 'ы', 'ь', 'э', 'ю', 'я']

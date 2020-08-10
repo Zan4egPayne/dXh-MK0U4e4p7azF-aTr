@@ -248,33 +248,6 @@ async def abc(ctx): # b'\xfc'
     for _next in АБВ[1:]:
         await message.edit(content=_next)
         await asyncio.sleep(2)
-	
-@Bot.command()
-async def hug(ctx, user: discord.Member): # b'\xfc'
-    await ctx.message.delete()
-    r = requests.get("https://nekos.life/api/v2/img/hug")
-    res = r.json()
-    em = discord.Embed(description=user.mention)
-    em.set_image(url=res['url'])
-    await ctx.send(embed=em)
-	
-@Bot.command()
-async def pat(ctx, user: discord.Member): # b'\xfc'
-    await ctx.message.delete()
-    r = requests.get("https://nekos.life/api/v2/img/pat")
-    res = r.json()
-    em = discord.Embed(description=user.mention)
-    em.set_image(url=res['url'])
-    await ctx.send(embed=em)
-	
-@Bot.command()
-async def kiss(ctx, user: discord.Member): # b'\xfc'
-    await ctx.message.delete()
-    r = requests.get("https://nekos.life/api/v2/img/kiss")
-    res = r.json()
-    em = discord.Embed(description=user.mention)
-    em.set_image(url=res['url'])
-    await ctx.send(embed=em)
 
 # Рандомное фото или гиф гуся
 @Bot.command()
@@ -362,10 +335,7 @@ async def help( ctx, amount = 1 ):
 	emb.add_field( name = '{}ping'.format( PREFIX ), value= 'Узнать задержку бота.' )
 	emb.add_field( name = '{}slot'.format( PREFIX ), value= 'Казино.' )
 	emb.add_field( name = '{}abc'.format( PREFIX ), value= 'Алфавит.' )
-	emb.add_field( name = '{}hug'.format( PREFIX ), value= 'Обнять пользователя.' )
-	emb.add_field( name = '{}pat'.format( PREFIX ), value= 'Похлопать пользователя.' )
-	emb.add_field( name = '{}kiss'.format( PREFIX ), value= 'Позеловать пользователя.' )
-	emb.set_footer( text = 'Всего команд: 24' )
+	emb.set_footer( text = 'Всего команд: 21' )
 
 
 	await ctx.send( embed = emb )

@@ -238,6 +238,16 @@ async def slot(ctx):
         await ctx.send(embed=discord.Embed.from_dict({"title":"Казино", "description":f"{slotmachine} 2 подряд вы выиграли!"}))
     else:
         await ctx.send(embed=discord.Embed.from_dict({"title":"Казино", "description":f"{slotmachine} Нет совпадения, вы проиграли"}))
+	
+@Alucard.command()
+async def abc(ctx): # b'\xfc'
+    await ctx.message.delete()
+    ABC = ['а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'ъ', 'ы', 'ь', 'э', 'ю'. 'я']
+    message = await ctx.send(ABC[0])
+    await asyncio.sleep(2)
+    for _next in ABC[1:]:
+        await message.edit(content=_next)
+        await asyncio.sleep(2)
 
 # Рандомное фото или гиф гуся
 @Bot.command()
@@ -324,7 +334,7 @@ async def help( ctx, amount = 1 ):
 	emb.add_field( name = '{}8ball'.format( PREFIX ), value= 'Шар предсказаний.' )
 	emb.add_field( name = '{}ping'.format( PREFIX ), value= 'Узнать задержку бота.' )
 	emb.add_field( name = '{}slot'.format( PREFIX ), value= 'Казино.' )
-	emb.set_footer( text = 'Всего команд: 18' )
+	emb.set_footer( text = 'Всего команд: 19' )
 
 
 	await ctx.send( embed = emb )

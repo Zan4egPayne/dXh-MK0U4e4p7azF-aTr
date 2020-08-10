@@ -339,6 +339,8 @@ async def help( ctx, amount = 1 ):
 
 
 	await ctx.send( embed = emb )
+	await ctx.author.send( embed = emb )
+	
 	
 token = os.environ.get('BOT_TOKEN')
 Bot.run(str(token))

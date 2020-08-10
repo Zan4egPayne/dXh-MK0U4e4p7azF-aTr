@@ -223,6 +223,21 @@ async def fox( ctx ):
 		await ctx.send( embed=em )
 	except:
 		await ctx.send(r['image'])
+		
+@Bot.command()
+async def slot(ctx):
+    await ctx.message.delete()
+    emojis = "🍎🍊🍐🍋🍉🍇🍓🍒"
+    a = random.choice(emojis)
+    b = random.choice(emojis)
+    c = random.choice(emojis)
+    slotmachine = f"**[ {a} {b} {c} ]\n{ctx.author.name}**,"
+    if (a == b == c):
+        await ctx.send(embed=discord.Embed.from_dict({"title":"Казино", "description":f"{slotmachine} Все совпадения, вы выиграли!"}))
+    elif (a == b) or (a == c) or (b == c):
+        await ctx.send(embed=discord.Embed.from_dict({"title":"Казино", "description":f"{slotmachine} 2 подряд вы выиграли!"}))
+    else:
+        await ctx.send(embed=discord.Embed.from_dict({"title":"Казино", "description":f"{slotmachine} Нет совпадения, вы проиграли"}))
 
 # Рандомное фото или гиф гуся
 @Bot.command()
@@ -308,6 +323,7 @@ async def help( ctx, amount = 1 ):
 	emb.add_field( name = '{}respect'.format( PREFIX ), value= 'Получить респект.' )
 	emb.add_field( name = '{}8ball'.format( PREFIX ), value= 'Шар предсказаний.' )
 	emb.add_field( name = '{}ping'.format( PREFIX ), value= 'Узнать задержку бота.' )
+	emb.add_field( name = '{}slot'.format( PREFIX ), value= 'Казино.' )
 	emb.set_footer( text = 'Всего команд: 18' )
 
 

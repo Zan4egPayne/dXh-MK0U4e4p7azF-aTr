@@ -243,10 +243,9 @@ async def slot(ctx):
 async def abc(ctx): # b'\xfc'
     await ctx.message.delete()
     АБВ = ['а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'ъ', 'ы', 'ь', 'э', 'ю', 'я']
-    ABC = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
-    message = await ctx.send(АБВ[0] \n ABC[0])
+    message = await ctx.send(АБВ[0])
     await asyncio.sleep(2)
-    for _next in АБВ[1:], ABC[1:]:
+    for _next in АБВ[1:]:
         await message.edit(content=_next)
         await asyncio.sleep(2)
 

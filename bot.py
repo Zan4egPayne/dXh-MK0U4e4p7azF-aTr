@@ -248,13 +248,40 @@ async def abc(ctx): # b'\xfc'
     for _next in АБВ[1:]:
         await message.edit(content=_next)
         await asyncio.sleep(2)
+	
+@Bot.command()
+async def hug(ctx, user: discord.Member): # b'\xfc'
+    await ctx.message.delete()
+    r = requests.get("https://nekos.life/api/v2/img/hug")
+    res = r.json()
+    em = discord.Embed(description=user.mention)
+    em.set_image(url=res['url'])
+    await ctx.send(embed=em)
+	
+@Bot.command()
+async def pat(ctx, user: discord.Member): # b'\xfc'
+    await ctx.message.delete()
+    r = requests.get("https://nekos.life/api/v2/img/pat")
+    res = r.json()
+    em = discord.Embed(description=user.mention)
+    em.set_image(url=res['url'])
+    await ctx.send(embed=em)
+	
+@Bot.command()
+async def kiss(ctx, user: discord.Member): # b'\xfc'
+    await ctx.message.delete()
+    r = requests.get("https://nekos.life/api/v2/img/kiss")
+    res = r.json()
+    em = discord.Embed(description=user.mention)
+    em.set_image(url=res['url'])
+    await ctx.send(embed=em)
 
 # Рандомное фото или гиф гуся
 @Bot.command()
 async def duck( ctx ):
 	await ctx.message.delete()
 	r = requests.get('https://random-d.uk/api/random').json()
-	em = discord.Embed( title="Рандомное фото или гифка гуся", color=0x63009c )
+	em = discord.Embed( title="Рандомное фото или гифка гуся", color=0x31f5f5 )
 	em.set_image(url=r["url"])
 	try:
 		await ctx.send(embed=em)
@@ -266,7 +293,7 @@ async def duck( ctx ):
 @Bot.command()
 async def rolton( ctx ):
 	await ctx.message.delete()
-	emb = discord.Embed( title="Вы заварили Ролтон? Отличный выбор!", description="\n \n У вас получилось:", color=0x63009c )
+	emb = discord.Embed( title="Вы заварили Ролтон? Отличный выбор!", description="\n \n У вас получилось:", color=0x31f5f5 )
 	emb.set_author( name='Ролтон', icon_url='https://cdn140.picsart.com/261815732025212.png?type=webp&to=min&r=640' )
 	emb.set_image( url = 'https://pngimg.com/uploads/noodle/noodle_PNG59.png' )
 	embed = discord.Embed( title="Инструкция", description="1. Откройте пачку ароматного Ролтона\n \n 2. Высыпите содержимое в тарелку \n \n 3. Залейте Ролтон кипятком \n \n 4. Накройте крышкой и подождите 4-5 минут \n \n 5. Наслаждайтесь вкусом вашего Ролтона", color=0x63009c )
@@ -282,7 +309,7 @@ async def btc( ctx ):
     r = r.json()
     usd = r['USD']
     eur = r['EUR']
-    em = discord.Embed( description=f'USD: `{str(usd)}$`\nEUR: `{str(eur)}€`', colour= 0x63009c )
+    em = discord.Embed( description=f'USD: `{str(usd)}$`\nEUR: `{str(eur)}€`', colour= 0x31f5f5 )
     em.set_author( name='Bitcoin', icon_url='https://cdn.pixabay.com/photo/2013/12/08/12/12/bitcoin-225079_960_720.png' )
     await ctx.send( embed=em )
 
@@ -294,7 +321,7 @@ async def eth( ctx ):
     r = r.json()
     usd = r['USD']
     eur = r['EUR']
-    em = discord.Embed( description=f'USD: `{str(usd)}$`\nEUR: `{str(eur)}€`', colour= 0x63009c )
+    em = discord.Embed( description=f'USD: `{str(usd)}$`\nEUR: `{str(eur)}€`', colour= 0x31f5f5 )
     em.set_author( name='Ethereum', icon_url='https://cdn.discordapp.com/attachments/271256875205525504/374282740218200064/2000px-Ethereum_logo.png' )
     await ctx.send( embed=em )
 
@@ -335,7 +362,10 @@ async def help( ctx, amount = 1 ):
 	emb.add_field( name = '{}ping'.format( PREFIX ), value= 'Узнать задержку бота.' )
 	emb.add_field( name = '{}slot'.format( PREFIX ), value= 'Казино.' )
 	emb.add_field( name = '{}abc'.format( PREFIX ), value= 'Алфавит.' )
-	emb.set_footer( text = 'Всего команд: 20' )
+	emb.add_field( name = '{}hug'.format( PREFIX ), value= 'Обнять пользователя.' )
+	emb.add_field( name = '{}pat'.format( PREFIX ), value= 'Похлопать пользователя.' )
+	emb.add_field( name = '{}kiss'.format( PREFIX ), value= 'Позеловать пользователя.' )
+	emb.set_footer( text = 'Всего команд: 24' )
 
 
 	await ctx.send( embed = emb )

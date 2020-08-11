@@ -369,7 +369,7 @@ async def help( ctx, amount = 1 ):
 	emb.add_field( name = '{}abc'.format( PREFIX ), value= 'Алфавит.' )
 	emb.add_field( name = '{}cat'.format( PREFIX ), value= 'Рандомное фото кота.' )
 	emb.add_field( name = '{}dog'.format( PREFIX ), value= 'Рандомное фото собаки.' )
-	emb.set_footer( text = 'Всего команд: 21' )
+	emb.set_footer( text = 'Всего команд: 23' )
 
 
 	await ctx.send( embed = emb )

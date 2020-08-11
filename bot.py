@@ -164,7 +164,7 @@ async def portscan( ctx, ip, port):
 			await ctx.send( f'Порт {port} открыт!' )
 
 @Bot.command() 
-async def cat(ctx):
+async def cat(ctx): # b'\xfc'
     await ctx.message.delete()
     if cat_key == '':
         print(+)
@@ -179,9 +179,9 @@ async def cat(ctx):
             except:
                 await ctx.send(str(r[0]["url"]))
         except Exception as e:
-            print(+)
+            print(f"{Fore.RED}[ERROR]: {Fore.YELLOW}{e}"+Fore.RESET)
         else:
-            print(+)
+            print(f"{Fore.RED}[ERROR]: {Fore.YELLOW}{req.text}"+Fore.RESET)
 	
 @Bot.command()
 async def dog(ctx):

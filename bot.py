@@ -162,26 +162,6 @@ async def portscan( ctx, ip, port):
 			await ctx.send( f'Порт {port} закрыт!' )
 		else:
 			await ctx.send( f'Порт {port} открыт!' )
-
-@Bot.command() 
-async def cat(ctx): # b'\xfc'
-    await ctx.message.delete()
-    if cat_key == '':
-        print(+)
-    else:
-        try:
-            req = requests.get(f"fhttps://api.thecatapi.com/v1/images/search?format=json&x-api-key={cat_key}")
-            r = req.json()
-            em = discord.Embed()
-            em.set_image(url=str(r[0]["url"]))
-            try:
-                await ctx.send(embed=em)
-            except:
-                await ctx.send(str(r[0]["url"]))
-        except Exception as e:
-            print(f"{Fore.RED}[ERROR]: {Fore.YELLOW}{e}"+Fore.RESET)
-        else:
-            print(f"{Fore.RED}[ERROR]: {Fore.YELLOW}{req.text}"+Fore.RESET)
 	
 @Bot.command()
 async def dog(ctx):
@@ -367,9 +347,8 @@ async def help( ctx, amount = 1 ):
 	emb.add_field( name = '{}ping'.format( PREFIX ), value= 'Узнать задержку бота.' )
 	emb.add_field( name = '{}slot'.format( PREFIX ), value= 'Казино.' )
 	emb.add_field( name = '{}abc'.format( PREFIX ), value= 'Алфавит.' )
-	emb.add_field( name = '{}cat'.format( PREFIX ), value= 'Рандомное фото кота.' )
 	emb.add_field( name = '{}dog'.format( PREFIX ), value= 'Рандомное фото собаки.' )
-	emb.set_footer( text = 'Всего команд: 23' )
+	emb.set_footer( text = 'Всего команд: 22' )
 
 
 	await ctx.send( embed = emb )

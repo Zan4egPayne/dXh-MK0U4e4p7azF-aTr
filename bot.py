@@ -238,7 +238,8 @@ async def slot(ctx):
         await ctx.send(embed=discord.Embed.from_dict({"title":"Казино", "description":f"{slotmachine} 2 подряд вы выиграли!"}))
     else:
         await ctx.send(embed=discord.Embed.from_dict({"title":"Казино", "description":f"{slotmachine} Нет совпадения, вы проиграли"}))
-	
+
+@commands.cooldown(1, 30, commands.BucketType.user)
 @Bot.command()
 async def abc(ctx): # b'\xfc'
     await ctx.message.delete()

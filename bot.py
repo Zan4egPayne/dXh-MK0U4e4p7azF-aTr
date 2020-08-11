@@ -161,19 +161,7 @@ async def portscan( ctx, ip, port):
 		if client.connect_ex((ip, port)):
 			await ctx.send( f'Порт {port} закрыт!' )
 		else:
-			await ctx.send( f'Порт {port} открыт!' )
-	
-@Bot.command()
-async def dog(ctx):
-    await ctx.message.delete()
-    r = requests.get("https://dog.ceo/api/breeds/image/random").json()
-    em = discord.Embed()
-    em.set_image(url=str(r['message']))
-    try:
-        await ctx.send(embed=em)
-    except:
-        await ctx.send(str(r['message']))    
-
+			await ctx.send( f'Порт {port} открыт!' )   
 
 @Bot.command()
 @commands.has_permissions(kick_members=True)
@@ -347,8 +335,7 @@ async def help( ctx, amount = 1 ):
 	emb.add_field( name = '{}ping'.format( PREFIX ), value= 'Узнать задержку бота.' )
 	emb.add_field( name = '{}slot'.format( PREFIX ), value= 'Казино.' )
 	emb.add_field( name = '{}abc'.format( PREFIX ), value= 'Алфавит.' )
-	emb.add_field( name = '{}dog'.format( PREFIX ), value= 'Рандомное фото собаки.' )
-	emb.set_footer( text = 'Всего команд: 22' )
+	emb.set_footer( text = 'Всего команд: 21' )
 
 
 	await ctx.send( embed = emb )

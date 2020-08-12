@@ -30,7 +30,7 @@ async def on_ready():
 		await asyncio.sleep(8)
 		await Bot.change_presence( status = discord.Status.online, activity = discord.Activity(type = discord.ActivityType.watching, name = f"{len(Bot.guilds)} серверов!") )
 		await asyncio.sleep(8)
-		await Bot.change_presence( status = discord.Status.online, activity = discord.Streaming(name = "Innuendo | i.help", url='https://twitch.com/zan4egpayne') )
+		await Bot.change_presence( status = discord.Status.online, activity = discord.Streaming(name = "http://innuendo.ml/", url='https://twitch.com/zan4egpayne') )
 
 
 # Глушим ошибки 

@@ -26,7 +26,7 @@ async def on_ready():
 	print("Бот запущен и готов к работе!")
 	while True:
 		await asyncio.sleep(8)
-		await Bot.change_presence( status = discord.Status.online, activity = discord.Game(name = "Kostya#3533 | Zan4eg#5557") )
+		await Bot.change_presence( status = discord.Status.online, activity = discord.Game(name = "i.help") )
 		await asyncio.sleep(8)
 		await Bot.change_presence( status = discord.Status.online, activity = discord.Activity(type = discord.ActivityType.watching, name = f"{len(Bot.guilds)} серверов!") )
 		await asyncio.sleep(8)

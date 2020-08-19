@@ -182,11 +182,6 @@ async def ban(ctx, member: discord.Member = None, *, reason = None):
         await member.send(f'Ты был забанен **{ctx.message.author}** на сервере ** {ctx.guild.name}** по причине: **{reason}** ')
         await member.ban()
         await ctx.send(f':white_check_mark: | **{member}** забанен.')
-
-@Bot.listen()
-async def on_message(message : discord.Message):
-    if Bot.user.mentioned_in(message):
-        await message.channel.send(':sleeping: | Ты меня разбудил :( . Мой префикс `i.` , чтобы узнать список команд напиши `i.help`', delete_after=10)
   
 @commands.cooldown(1, 5, commands.BucketType.user)
 @Bot.command()

@@ -491,5 +491,6 @@ async def help( ctx, amount = 1 ):
     page = pag(Bot, message, only=ctx.author, use_more=False, embeds=embeds)
     await page.start()
     
-    
-Bot.run('NzQzMDY5Njc2ODQxNDY3OTE0.XzPTkA.85k9ulhX61SbZzzKJUFtqClt1_0')
+ 
+token = os.environ.get('BOT_TOKEN')
+Bot.run(str(token))

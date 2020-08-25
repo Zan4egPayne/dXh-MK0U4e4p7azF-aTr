@@ -53,13 +53,7 @@ async def on_ready():
         id INT,
         cost BIGINT
     )""")
-
-    for guild in Bot.guilds:
-        for member in guild.members:
-            if cursor.execute(f"SELECT id FROM users WHERE id = {member.id}").fetchone() is None:
-        else:
-            pass
-
+    
     connection.commit()
     print('Bot connected')
 

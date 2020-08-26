@@ -11,7 +11,8 @@ from datetime import timedelta
 import os
 import sqlite3
 from Cybernator import Paginator as pag
-from datebase.datebase import datebase as dt
+import datebase
+from datebase import datebase as dt
 
 
 PREFIX = 'i.' # Переменная префикса

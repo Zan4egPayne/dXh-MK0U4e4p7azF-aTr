@@ -11,6 +11,7 @@ from datetime import timedelta
 import os
 import sqlite3
 from Cybernator import Paginator as pag
+from datebase.datebase import datebase as dt
 
 
 PREFIX = 'i.' # Переменная префикса
@@ -36,7 +37,11 @@ async def on_ready():
         await Bot.change_presence( status = discord.Status.online, activity = discord.Activity(type = discord.ActivityType.watching, name = f"{len(Bot.guilds)} серверов!") )
         await asyncio.sleep(8)
         await Bot.change_presence( status = discord.Status.online, activity = discord.Streaming(name = "http://innuendo.ml/", url='https://twitch.com/zan4egpayne') )
+ 
+base = dt()
+base.start()
 
+        
 # Информация о пользователе
 @Bot.command( pass_context=True )
 async def info(ctx, user: discord.Member = None):

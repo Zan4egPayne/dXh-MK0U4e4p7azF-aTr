@@ -13,7 +13,7 @@ import sqlite3
 from Cybernator import Paginator as pag
 
 
-PREFIX = 'it.' # Переменная префикса
+PREFIX = 'i.' # Переменная префикса
 
 connection = sqlite3.connect('server.db')
 cursor = connection.cursor()

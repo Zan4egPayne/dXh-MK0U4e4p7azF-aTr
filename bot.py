@@ -9,8 +9,13 @@ import socket
 import datetime
 from datetime import timedelta
 import os
-import sqlite3
 from Cybernator import Paginator as pag
+import time
+import speech_recognition as sr
+from fuzzywuzzy import fuzz
+import pyttsx3
+import datetime
+import webbrowser
 
 
 PREFIX = 'i.' # Переменная префикса
@@ -37,6 +42,17 @@ async def on_ready():
         await asyncio.sleep(8)
         await Bot.change_presence( status = discord.Status.online, activity = discord.Streaming(name = "http://innuendo.ml/", url='https://twitch.com/zan4egpayne') )
 
+# настройки
+opts = {
+    "alias": ('алкаш','алкашик','бухарь','вася','ержан'),
+    "tbr": ('скажи','расскажи','покажи','сколько','произнеси'),
+    "cmds": {
+        "ctime": ('текущее время','сейчас времени','который час'),
+        "stupid1": ('расскажи анекдот','рассмеши меня','ты знаешь анекдоты'),
+        "song": ('спой мне', 'песня'),
+        "game": ('игра')
+    }
+}
         
 # Информация о пользователе
 @Bot.command( pass_context=True )
@@ -128,6 +144,79 @@ async def passgen( ctx ):
     await ctx.send( embed = emb )
     await ctx.author.send( embed = em )
 
+# функции
+def speak(what):
+    print( what )
+    speak_engine.say( what )
+    speak_engine.runAndWait()
+    speak_engine.stop()
+ 
+def callback(recognizer, audio):
+    try:
+        voice = recognizer.recognize_google(audio, language = "ru-RU").lower()
+        print("[log] Распознано: " + voice)
+    
+        if voice.startswith(opts["alias"]):
+            # обращаются к алкашу
+            cmd = voice
+ 
+            for x in opts['alias']:
+                cmd = cmd.replace(x, "").strip()
+            
+            for x in opts['tbr']:
+                cmd = cmd.replace(x, "").strip()
+            
+            # распознаем и выполняем команду
+            cmd = recognize_cmd(cmd)
+            execute_cmd(cmd['cmd'])
+ 
+    except sr.UnknownValueError:
+        print("[log] Голос не распознан!")
+    except sr.RequestError as e:
+        print("[log] Неизвестная ошибка, проверьте интернет!")
+ 
+def recognize_cmd(cmd):
+    RC = {'cmd': '', 'percent': 0}
+    for c,v in opts['cmds'].items():
+ 
+        for x in v:
+            vrt = fuzz.ratio(cmd, x)
+            if vrt > RC['percent']:
+                RC['cmd'] = c
+                RC['percent'] = vrt
+    
+    return RC
+ 
+def execute_cmd(cmd):
+    if cmd == 'ctime':
+        # сказать текущее время
+        now = datetime.datetime.now()
+        speak("Сейчас " + str(now.hour) + ":" + str(now.minute))
+    
+    elif cmd == 'stupid1':
+        speak("Мой разработчик не научил меня анекдотам ... Ха ха ха")
+    
+    elif cmd == 'song':
+    	speak('Песенка. АОАОАОАО Я БОТ АЛКАШ. АОАОАО НАЛЕЙ МНЕ РЮМКУ. ОООО, МОИ МИКРОСХЕМЫ РАБОТАЮТ НОРМ')
+
+    else:
+        print('Команда не распознана, повторите!')
+ 
+# запуск
+r = sr.Recognizer()
+m = sr.Microphone(device_index = 1)
+ 
+with m as source:
+    r.adjust_for_ambient_noise(source)
+
+speak_engine = pyttsx3.init()
+
+speak("Привет")
+speak("Я слушаю")
+
+stop_listening = r.listen_in_background(m, callback)
+while True: time.sleep(0.1) # infinity loop
+    
 # Получение айпи по домену
 @Bot.command()
 async def getip( ctx, host = None ):

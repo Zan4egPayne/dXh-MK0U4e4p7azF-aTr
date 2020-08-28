@@ -2,7 +2,3 @@ discord-py
 asyncio
 datetime
 Cybernator
-pyaudio
-pyttsx3
-fuzzywuzzy
-speechrecognition

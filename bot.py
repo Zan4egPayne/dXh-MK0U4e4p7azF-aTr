@@ -14,9 +14,6 @@ from Cybernator import Paginator as pag
 
 PREFIX = 'i.' # Переменная префикса
 
-connection = sqlite3.connect('server.db')
-cursor = connection.cursor()
-
 Bot = commands.Bot( command_prefix = PREFIX ) # Установка префикса бота
 @Bot.remove_command('help') #Удаление стандартной комманды help
 

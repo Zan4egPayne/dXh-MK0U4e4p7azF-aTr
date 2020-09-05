@@ -2,4 +2,3 @@ discord-py
 asyncio
 datetime
 Cybernator
-+smtplib

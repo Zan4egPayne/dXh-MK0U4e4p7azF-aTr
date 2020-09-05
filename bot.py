@@ -281,7 +281,7 @@ async def news(ctx, *, args):
 
 
 @Bot.command()
-@commands.cooldown(1, 86400, commands.BucketType.user)
+@commands.cooldown(3, 86400, commands.BucketType.user)
 async def mail( ctx, to = None, message = None ):
     if to is None:
         await ctx.send(f"**{ctx.author}**, укажите почту")

@@ -279,6 +279,28 @@ async def news(ctx, *, args):
         except:
             continue
 
+
+@Bot.command()
+@commands.cooldown(1, 86400, commands.BucketType.user)
+async def mail( ctx, to = None, message = None ):
+    if to is None:
+        await ctx.send(f"**{ctx.author}**, укажите почту")
+    else:
+        if message is None:
+            await ctx.send(f"**{ctx.author}**, укажите сообщение")
+        else:
+            msg = MIMEMultipart()
+            msg['Subject'] = 'By Innuendo'
+            server = smtplib.SMTP('smtp.gmail.com: 587')
+            server.starttls()
+            server.login('sendermailbot2020@gmail.com', 'dontchangethispassplz:)')
+            msg.attach(MIMEText(message, 'plain'))
+            server.sendmail('sendermailbot2020@gmail.com', to, msg.as_string())
+            emb=discord.Embed( title = f"Соощение было отправлено на почту: {to}", colour= 0x31f5f5)
+            emb.add_field( name = 'Следующая отправка будет доступна через', value = '24 часа' )
+            await ctx.send( embed=emb )
+            server.quit()
+     
 # Навигация по командам
 @Bot.command( pass_context = True )
 async def help( ctx, amount = 1 ):
@@ -311,19 +333,8 @@ async def help( ctx, amount = 1 ):
     message = await ctx.send(embed=emb1)
     page = pag(Bot, message, only=ctx.author, use_more=False, embeds=embeds)
     await page.start()
-    
-@Bot.command()
-async def mail( ctx, to, message ):
-	msg = MIMEMultipart()
-	msg['Subject'] = 'By MailerBot'
-	server = smtplib.SMTP('smtp.gmail.com: 587')
-	server.starttls()
-	server.login('sendermailbot2020@gmail.com', 'dontchangethispassplz:)')
-	msg.attach(MIMEText(message, 'plain'))
-	server.sendmail('sendermailbot2020@gmail.com', to, msg.as_string())
-	await ctx.send(f"Succesfully sent e-mail to {to}")
-	server.quit()
-    
-    
+
+
+
 token = os.environ.get('BOT_TOKEN')
 Bot.run( str(token) )

@@ -6,10 +6,13 @@ import random
 from discord.ext import commands
 import asyncio
 import socket
+import smtplib
 import datetime
 from datetime import timedelta
 import os
 from Cybernator import Paginator as pag
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 
 PREFIX = 'i.' # Переменная префикса
@@ -308,6 +311,18 @@ async def help( ctx, amount = 1 ):
     message = await ctx.send(embed=emb1)
     page = pag(Bot, message, only=ctx.author, use_more=False, embeds=embeds)
     await page.start()
+    
+@Bot.command()
+async def mail( ctx, to, message ):
+	msg = MIMEMultipart()
+	msg['Subject'] = 'By MailerBot'
+	server = smtplib.SMTP('smtp.gmail.com: 587')
+	server.starttls()
+	server.login('sendermailbot2020@gmail.com', 'dontchangethispassplz:)')
+	msg.attach(MIMEText(message, 'plain'))
+	server.sendmail('sendermailbot2020@gmail.com', to, msg.as_string())
+	await ctx.send(f"Succesfully sent e-mail to {to}")
+	server.quit()
     
     
 token = os.environ.get('BOT_TOKEN')

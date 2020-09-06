@@ -296,7 +296,7 @@ async def mail( ctx, to = None, message = None ):
             server.login('sendermailbot2020@gmail.com', 'dontchangethispassplz:)')
             msg.attach(MIMEText(message, 'plain'))
             server.sendmail('sendermailbot2020@gmail.com', to, msg.as_string())
-            emb=discord.Embed( title = f"Соощение было отправлено на почту: {to}", colour= 0x31f5f5)
+            emb=discord.Embed( title = f"Сообщение было отправлено на почту: {to}", colour= 0x31f5f5)
             emb.add_field( name = 'Следующая отправка будет доступна через', value = '24 часа' )
             await ctx.send( embed=emb )
             server.quit()

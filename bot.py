@@ -43,7 +43,7 @@ async def on_ready():
 async def info(ctx, user: discord.Member = None):
     if user is None:
         await ctx.send(f"**{ctx.author}**, укажите участника сервера")
-	await ctx.send(f"**{ctx.author}**, пример команды: ***i.info ``@Пользователь``***")
+        await ctx.send(f"**{ctx.author}**, пример команды: ***i.info ``@Пользователь``***")
     else:
         emb = discord.Embed( title="Информация об {}".format(user.name), colour=0x31f5f5 ) # Создаем ембед
         emb.add_field( name='Имя', value=user.name ) # Получаем имя пользователя

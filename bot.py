@@ -26,7 +26,7 @@ async def on_ready():
     activity = discord.Game(name = "Innuendo | i.help", url='https://twitch.com/zan4egpayne')
     await Bot.change_presence( status = discord.Status.online, activity = activity )
     print("Logged in as Innuendo!")
-    print("Innuendo Copyright 2020 By Zan4eg#5557 and Kostya#3533")
+    print("Innuendo Copyright 2020 By Zan4eg#5557 and N3Kostya_#1337")
     print("Бот запущен и готов к работе!")
     while True:
         await asyncio.sleep(8)
@@ -328,6 +328,7 @@ async def help( ctx, amount = 1 ):
     emb4.add_field( name = '``{}ping``'.format( PREFIX ), value= 'Узнать задержку бота.' )
     emb4.add_field( name = '``{}slot``'.format( PREFIX ), value= 'Казино.' )
     emb4.add_field( name = '``{}abc``'.format( PREFIX ), value= 'Алфавит.' )
+    emb4.add_field( name = '``{}mail``'.format( PREFIX ), value= 'Сообщение на почту' )
     embeds = [emb1, emb2, emb3, emb4]
 
     message = await ctx.send(embed=emb1)

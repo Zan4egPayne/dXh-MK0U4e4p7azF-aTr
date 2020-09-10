@@ -43,6 +43,7 @@ async def on_ready():
 async def info(ctx, user: discord.Member = None):
     if user is None:
         await ctx.send(f"**{ctx.author}**, укажите участника сервера")
+	await ctx.send(f"**{ctx.author}**, пример команды: ***i.info ``@Пользователь``***")
     else:
         emb = discord.Embed( title="Информация об {}".format(user.name), colour=0x31f5f5 ) # Создаем ембед
         emb.add_field( name='Имя', value=user.name ) # Получаем имя пользователя
@@ -68,6 +69,7 @@ async def invite ( ctx ):
 async def clear ( ctx, amount : int = None):  # Создание комманды/функции
     if amount is None:
         await ctx.send(f"**{ctx.author}**, укажите количество сообщений для удаления")
+	await ctx.send(f"**{ctx.author}**, пример команды: ***i.clear ``кол-во сообщений``***")
     else:
         await ctx.message.delete() # Удаление сообщения с коммандой
         await ctx.channel.purge( limit = amount ) # Сама очистка
@@ -133,6 +135,7 @@ async def passgen( ctx ):
 async def getip( ctx, host = None ):
     if host is None:
         await ctx.send(f"**{ctx.author}**, укажите домен")
+	await ctx.send(f"**{ctx.author}**, пример команды: ***i.getip ``домен```***")
     else:
         ip = socket.gethostbyname( host )
         await ctx.send( ip )
@@ -287,9 +290,11 @@ async def news(ctx, *, args):
 async def mail( ctx, to = None, message = None ):
     if to is None:
         await ctx.send(f"**{ctx.author}**, укажите почту")
+	await ctx.send(f"**{ctx.author}**, пример команды: ***i.mail ``почта`` ``сообщение``***")
     else:
         if message is None:
             await ctx.send(f"**{ctx.author}**, укажите сообщение")
+	    await ctx.send(f"**{ctx.author}**, пример команды: ***i.mail ``почта`` ``сообщение``***")
         else:
             msg = MIMEMultipart()
             msg['Subject'] = 'By Innuendo'
@@ -304,16 +309,25 @@ async def mail( ctx, to = None, message = None ):
             server.quit()
 
 @Bot.command()
-async def srvinfo( ctx, host, port ):
-	port = int(port)
-	sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-	sock.settimeout(1.0)
-	sock.connect((host, port))
-	getinfo = urllib.request.urlopen('https://api.mcsrvstat.us/2/' + host + ':' + str(port))
-	jsoninfo = json.loads(getinfo.read().decode('utf-8'))
-	await ctx.send(f'Айпи: ' + host + ':' + str(port) + '\nВерсия: {0} \nМотд: {1}'.format(jsoninfo['version'], jsoninfo['motd']['clean'][0]))
-	sock.close()
+@commands.cooldown(3, 600, commands.BucketType.user)
+async def srvinfo( ctx, host = None, port = None ):
+    if host is None:
+	await ctx.send(f"**{ctx.author}**, укажите айпи")
+	await ctx.send(f"**{ctx.author}**, пример команды: ***i.srvinfo ``айпи`` ``порт``***")
+    else:
+	if port is None:
+	    await ctx.send(f"**{ctx.author}**, укажите порт")
+	    await ctx.send(f"**{ctx.author}**, пример команды: ***i.srvinfo ``айпи`` ``порт``***")
+	else:
+	    port = int(port)
+	    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	    sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+	    sock.settimeout(1.0)
+	    sock.connect((host, port))
+	    getinfo = urllib.request.urlopen('https://api.mcsrvstat.us/2/' + host + ':' + str(port))
+	    jsoninfo = json.loads(getinfo.read().decode('utf-8'))
+	    await ctx.send(f'Айпи: ' + host + ':' + str(port) + '\nВерсия: {0} \nМотд: {1}'.format(jsoninfo['version'], jsoninfo['motd']['clean'][0]))
+	    sock.close()
 
             
 # Навигация по командам

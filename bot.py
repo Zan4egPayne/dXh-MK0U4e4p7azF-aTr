@@ -300,7 +300,20 @@ async def mail( ctx, to = None, message = None ):
             emb.add_field( name = 'Следующая отправка будет доступна через', value = '24 часа' )
             await ctx.send( embed=emb )
             server.quit()
-     
+
+@Bot.command()
+async def srvinfo( ctx, host, port ):
+	port = int(port)
+	sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+	sock.settimeout(1.0)
+	sock.connect((host, port))
+	getinfo = urllib.request.urlopen('https://api.mcsrvstat.us/2/' + host + ':' + str(port))
+	jsoninfo = json.loads(getinfo.read().decode('utf-8'))
+	await ctx.send(f'Айпи: ' + host + ':' + str(port) + '\nВерсия: {0} \nМотд: {1}'.format(jsoninfo['version'], jsoninfo['motd']['clean'][0]))
+	sock.close()
+
+            
 # Навигация по командам
 @Bot.command( pass_context = True )
 async def help( ctx, amount = 1 ):
@@ -329,6 +342,7 @@ async def help( ctx, amount = 1 ):
     emb4.add_field( name = '``{}slot``'.format( PREFIX ), value= 'Казино.' )
     emb4.add_field( name = '``{}abc``'.format( PREFIX ), value= 'Алфавит.' )
     emb4.add_field( name = '``{}mail``'.format( PREFIX ), value= 'Сообщение на почту' )
+    emb4.add_field( name = '``{}srvinfo``'.format( PREFIX ), value= 'Инфа о сервере майна' )
     embeds = [emb1, emb2, emb3, emb4]
 
     message = await ctx.send(embed=emb1)

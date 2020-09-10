@@ -42,8 +42,7 @@ async def on_ready():
 @Bot.command( pass_context=True )
 async def info(ctx, user: discord.Member = None):
     if user is None:
-        await ctx.send(f"**{ctx.author}**, укажите участника сервера")
-        await ctx.send(f"**{ctx.author}**, пример команды: ***i.info ``@Пользователь``***")
+        await ctx.send(f"**{ctx.author}**, укажите участника сервера \n Пример команды: ***i.info ``@Пользователь``***")
     else:
         emb = discord.Embed( title="Информация об {}".format(user.name), colour=0x31f5f5 ) # Создаем ембед
         emb.add_field( name='Имя', value=user.name ) # Получаем имя пользователя
@@ -68,8 +67,7 @@ async def invite ( ctx ):
 @commands.has_permissions( administrator = True ) # Установка нужных прав для комманды
 async def clear ( ctx, amount : int = None):  # Создание комманды/функции
     if amount is None:
-        await ctx.send(f"**{ctx.author}**, укажите количество сообщений для удаления")
-	await ctx.send(f"**{ctx.author}**, пример команды: ***i.clear ``кол-во сообщений``***")
+        await ctx.send(f"**{ctx.author}**, укажите количество сообщений для удаления \n Пример команды: ***i.clear ``кол-во сообщений``***")
     else:
         await ctx.message.delete() # Удаление сообщения с коммандой
         await ctx.channel.purge( limit = amount ) # Сама очистка
@@ -134,8 +132,7 @@ async def passgen( ctx ):
 @Bot.command()
 async def getip( ctx, host = None ):
     if host is None:
-        await ctx.send(f"**{ctx.author}**, укажите домен")
-	await ctx.send(f"**{ctx.author}**, пример команды: ***i.getip ``домен```***")
+        await ctx.send(f"**{ctx.author}**, укажите домен \n Пример команды: ***i.getip ``домен```***")
     else:
         ip = socket.gethostbyname( host )
         await ctx.send( ip )
@@ -289,12 +286,10 @@ async def news(ctx, *, args):
 @commands.cooldown(3, 86400, commands.BucketType.user)
 async def mail( ctx, to = None, message = None ):
     if to is None:
-        await ctx.send(f"**{ctx.author}**, укажите почту")
-	await ctx.send(f"**{ctx.author}**, пример команды: ***i.mail ``почта`` ``сообщение``***")
+        await ctx.send(f"**{ctx.author}**, укажите почту \n Пример команды: ***i.mail ``почта`` ``сообщение``***")
     else:
         if message is None:
-            await ctx.send(f"**{ctx.author}**, укажите сообщение")
-	    await ctx.send(f"**{ctx.author}**, пример команды: ***i.mail ``почта`` ``сообщение``***")
+            await ctx.send(f"**{ctx.author}**, укажите сообщение \n Пример команды: ***i.mail ``почта`` ``сообщение``***")
         else:
             msg = MIMEMultipart()
             msg['Subject'] = 'By Innuendo'
@@ -312,12 +307,10 @@ async def mail( ctx, to = None, message = None ):
 @commands.cooldown(3, 600, commands.BucketType.user)
 async def srvinfo( ctx, host = None, port = None ):
     if host is None:
-	await ctx.send(f"**{ctx.author}**, укажите айпи")
-	await ctx.send(f"**{ctx.author}**, пример команды: ***i.srvinfo ``айпи`` ``порт``***")
+	await ctx.send(f"**{ctx.author}**, укажите айпи \n Пример команды: ***i.srvinfo ``айпи`` ``порт``***")
     else:
 	if port is None:
-	    await ctx.send(f"**{ctx.author}**, укажите порт")
-	    await ctx.send(f"**{ctx.author}**, пример команды: ***i.srvinfo ``айпи`` ``порт``***")
+	    await ctx.send(f"**{ctx.author}**, укажите порт \n Пример команды: ***i.srvinfo ``айпи`` ``порт``***")
 	else:
 	    port = int(port)
 	    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

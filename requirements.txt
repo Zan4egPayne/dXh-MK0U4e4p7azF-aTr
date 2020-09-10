@@ -2,3 +2,4 @@ discord-py
 asyncio
 datetime
 Cybernator
+six

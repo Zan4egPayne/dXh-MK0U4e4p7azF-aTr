@@ -27,23 +27,15 @@ Bot = commands.Bot( command_prefix = PREFIX ) # Установка префик�
 async def on_ready():
     activity = discord.Game(name = "Innuendo | i.help", url='https://twitch.com/zan4egpayne')
     await Bot.change_presence( status = discord.Status.online, activity = activity )
-    print("Logged in as Innuendo!")
-    print("Innuendo Copyright 2020 By Zan4eg#5557 and N3Kostya_#1337")
-    print("Бот запущен и готов к работе!")
-    print	██╗███╗   ██╗███╗   ██╗██╗   ██╗███████╗███╗   ██╗██████╗  ██████╗ 
-    print	██║████╗  ██║████╗  ██║██║   ██║██╔════╝████╗  ██║██╔══██╗██╔═══██╗
-    print	██║██╔██╗ ██║██╔██╗ ██║██║   ██║█████╗  ██╔██╗ ██║██║  ██║██║   ██║
-    print	██║██║╚██╗██║██║╚██╗██║██║   ██║██╔══╝  ██║╚██╗██║██║  ██║██║   ██║
-    print	██║██║ ╚████║██║ ╚████║╚██████╔╝███████╗██║ ╚████║██████╔╝╚██████╔╝
-    print	╚═╝╚═╝  ╚═══╝╚═╝  ╚═══╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝╚═════╝  ╚═════╝ 
-                                           
     await asyncio.sleep(8)
     await Bot.change_presence( status = discord.Status.online, activity = discord.Game(name = "i.help") )
     await asyncio.sleep(8)
     await Bot.change_presence( status = discord.Status.online, activity = discord.Activity(type = discord.ActivityType.watching, name = f"{len(Bot.guilds)} серверов!") )
     await asyncio.sleep(8)
     await Bot.change_presence( status = discord.Status.online, activity = discord.Streaming(name = "http://innuendo.ml/", url='https://twitch.com/zan4egpayne') )
-        
+    print("Logged in as Innuendo!")
+    print("Innuendo Copyright 2020 By Zan4eg#5557 and N3Kostya_#1337")
+    print("Бот запущен и готов к работе!")                              
 # Информация о пользователе
 @Bot.command( pass_context=True )
 async def info(ctx, user: discord.Member = None):

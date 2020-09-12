@@ -304,6 +304,12 @@ async def mail( ctx, to = None, message = None ):
 @Bot.command()
 @commands.cooldown(3, 600, commands.BucketType.user)
 async def srvinfo( ctx, host = None, port = None ):
+    if host is None:
+        await ctx.send(f"**{ctx.author}**, укажите айпи \n Пример команды: ***i.srvinfo ``айпи`` ``порт``***")
+    else:
+        if port is None:
+            await ctx.send(f"**{ctx.author}**, укажите айпи \n Пример команды: ***i.srvinfo ``айпи`` ``порт``***")
+        else:
 	    port = int(port)
 	    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	    sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)

@@ -30,6 +30,21 @@ async def on_ready():
     print("Logged in as Innuendo!")
     print("Innuendo Copyright 2020 By Zan4eg#5557 and N3Kostya_#1337")
     print("Бот запущен и готов к работе!")
+    l = ['|', '/', '-', '\\']
+    for i in l+l+l:
+	sys.stdout.write('\r' + '[*] Loading... '+i)
+	sys.stdout.flush()
+	await asyncio.sleep(0.2)
+    logo = """
+    	██╗███╗   ██╗███╗   ██╗██╗   ██╗███████╗███╗   ██╗██████╗  ██████╗ 
+	██║████╗  ██║████╗  ██║██║   ██║██╔════╝████╗  ██║██╔══██╗██╔═══██╗
+	██║██╔██╗ ██║██╔██╗ ██║██║   ██║█████╗  ██╔██╗ ██║██║  ██║██║   ██║
+	██║██║╚██╗██║██║╚██╗██║██║   ██║██╔══╝  ██║╚██╗██║██║  ██║██║   ██║
+	██║██║ ╚████║██║ ╚████║╚██████╔╝███████╗██║ ╚████║██████╔╝╚██████╔╝
+	╚═╝╚═╝  ╚═══╝╚═╝  ╚═══╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝╚═════╝  ╚═════╝ 
+                                                                  
+	"""
+    print("\n\t\t" + logo + "\t\tBy N3Kostya_#1337 and Zan4eg#5557")
     while True:
         await asyncio.sleep(8)
         await Bot.change_presence( status = discord.Status.online, activity = discord.Game(name = "i.help") )

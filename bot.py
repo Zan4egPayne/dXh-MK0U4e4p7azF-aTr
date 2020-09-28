@@ -264,15 +264,15 @@ async def srvinfo( ctx, host = None, port = None ):
 	    await ctx.send(f'Айпи: ' + host + ':' + str(port) + '\nВерсия: {0} \nМотд: {1}'.format(jsoninfo['version'], jsoninfo['motd']['clean'][0]))
 	    sock.close()
 
-@Bot.command(aliases = ["avatar", "Avatar", "Аватар"])
-async def avatar(ctx, *, avamember: discord.Member):   #аватар упомянутого пользователя
+@Bot.command()
+async def userpic(ctx, *, avamember: discord.Member):
     emb = discord.Embed(title = f"Аватар {avamember.name}", colour = 0x31f5f5)
     emb.set_image(url = avamember.avatar_url)
     await ctx.send(embed = emb)
 
 @Bot.command()
 async def botinfo(ctx):
-    guilds = await client.fetch_guilds(limit = None).flatten()    # Получение всех серверов где есть бот
+    guilds = await client.fetch_guilds(limit = None).flatten()  
     emb = discord.Embed(title = "Статистика", colour = 0x31f5f5)
     emb.add_field(name = "Основная:", value = f"Серверов: **{len(guilds)}**\nУчастников: **{len(set(client.get_all_members()))}**")    # 1: Количество серверов, 2: количество уникальных участников на всех серверах
     emb.add_field(name = "Бот:", value = f"Задержка: **{int(client.latency * 1000)} мс**") # Скорость соединения бота с API дискорда
@@ -309,7 +309,7 @@ async def help( ctx, amount = 1 ):
     emb4.add_field( name = '``{}mail``'.format( PREFIX ), value= 'Сообщение на почту.' )
     emb4=discord.Embed( title = 'Навигация по командам :pushpin:', colour= 0x31f5f5 )
     emb4.add_field( name = '``{}srvinfo``'.format( PREFIX ), value= 'Инфа о сервере майна.' )
-    emb4.add_field( name = '``{}avatar``'.format( PREFIX ), value= 'Узнать аватар пользователя.' )
+    emb4.add_field( name = '``{}userpic``'.format( PREFIX ), value= 'Узнать аватар пользователя.' )
     emb4.add_field( name = '``{}botinfo``'.format( PREFIX ), value= 'Узнать статистику бота.' )
     emb4.add_field( name = '``{}emoji``'.format( PREFIX ), value= 'Конвертировать емоджы в изображение.' )
 

@@ -272,10 +272,10 @@ async def userpic(ctx, *, avamember: discord.Member):
 
 @Bot.command()
 async def botinfo(ctx):
-    guilds = await client.fetch_guilds(limit = None).flatten()  
+    guilds = await Bot.fetch_guilds(limit = None).flatten()  
     emb = discord.Embed(title = "Статистика", colour = 0x31f5f5)
-    emb.add_field(name = "Основная:", value = f"Серверов: **{len(guilds)}**\nУчастников: **{len(set(client.get_all_members()))}**")    # 1: Количество серверов, 2: количество уникальных участников на всех серверах
-    emb.add_field(name = "Бот:", value = f"Задержка: **{int(client.latency * 1000)} мс**") # Скорость соединения бота с API дискорда
+    emb.add_field(name = "Основная:", value = f"Серверов: **{len(guilds)}**\nУчастников: **{len(set(Bot.get_all_members()))}**")    # 1: Количество серверов, 2: количество уникальных участников на всех серверах
+    emb.add_field(name = "Бот:", value = f"Задержка: **{int(Bot.latency * 1000)} мс**") # Скорость соединения бота с API дискорда
     await ctx.send(embed = emb)
 
 @Bot.command()

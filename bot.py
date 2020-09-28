@@ -15,6 +15,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import json, socket, threading, time, concurrent.futures
 from six.moves import urllib
+import requests
 
 
 PREFIX = 'i.' # Переменная префикса

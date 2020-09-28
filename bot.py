@@ -27,15 +27,18 @@ Bot = commands.Bot( command_prefix = PREFIX ) # Установка префик�
 async def on_ready():
     activity = discord.Game(name = "Innuendo | i.help", url='https://twitch.com/zan4egpayne')
     await Bot.change_presence( status = discord.Status.online, activity = activity )
-    await asyncio.sleep(8)
-    await Bot.change_presence( status = discord.Status.online, activity = discord.Game(name = "i.help") )
-    await asyncio.sleep(8)
-    await Bot.change_presence( status = discord.Status.online, activity = discord.Activity(type = discord.ActivityType.watching, name = f"{len(Bot.guilds)} серверов!") )
-    await asyncio.sleep(8)
-    await Bot.change_presence( status = discord.Status.online, activity = discord.Streaming(name = "http://innuendo.ml/", url='https://twitch.com/zan4egpayne') )
     print("Logged in as Innuendo!")
-    print("Innuendo Copyright 2020 By Zan4eg#5557 and N3Kostya_#1337")
-    print("Бот запущен и готов к работе!")                              
+    print("Innuendo Copyright 2020 By Zan4eg#5557 and Kostya#3533")
+    print("Бот запущен и готов к работе!")
+    while True:
+        await asyncio.sleep(8)
+        await Bot.change_presence( status = discord.Status.online, activity = discord.Game(name = "i.help") )
+        await asyncio.sleep(8)
+        await Bot.change_presence( status = discord.Status.online, activity = discord.Activity(type = discord.ActivityType.watching, name = f"{len(Bot.guilds)} серверов!") )
+        await asyncio.sleep(8)
+        await Bot.change_presence( status = discord.Status.online, activity = discord.Streaming(name = "http://innuendo.ml/", url='https://twitch.com/zan4egpayne') )  
+
+
 # Информация о пользователе
 @Bot.command( pass_context=True )
 async def info(ctx, user: discord.Member = None):
@@ -67,7 +70,6 @@ async def clear ( ctx, amount : int = None):  # Создание комманд�
     if amount is None:
         await ctx.send(f"**{ctx.author}**, укажите количество сообщений для удаления \n Пример команды: ***i.clear ``кол-во сообщений``***")
     else:
-        await ctx.message.delete() # Удаление сообщения с коммандой
         await ctx.channel.purge( limit = amount ) # Сама очистка
         emb = discord.Embed( description=f'✅  Очищено {amount} сообщений!', colour=0x31f5f5 ) # Создание отчета об очистке
         await ctx.send( embed = emb )
@@ -117,7 +119,6 @@ lenght = int( '20' )
 chars = '+-/*$#?=@<>abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
 @Bot.command()
 async def passgen( ctx ):
-    await ctx.message.delete()
     password = ''
     for i in range( lenght ):
         password += random.choice( chars )
@@ -182,21 +183,9 @@ async def ping(ctx):
     em.add_field(name="MS", value=f'Пинг бота: **{ctx.bot.latency * 1000:,.2f}ms**', inline=True)
     await ctx.send(embed=em)
 
-# Рандомное фото лисы
-@Bot.command()
-async def fox( ctx ):
-    await ctx.message.delete()
-    r = requests.get('https://randomfox.ca/floof/').json()
-    em = discord.Embed( title="Рандомное фото лисы", color=0x31f5f5 )
-    em.set_image( url=r["image"] )
-    try:
-        await ctx.send( embed=em )
-    except:
-        await ctx.send(r['image'])
         
 @Bot.command()
 async def slot(ctx):
-    await ctx.message.delete()
     emojis = "🍎🍊🍐🍋🍉🍇🍓🍒"
     a = random.choice(emojis)
     b = random.choice(emojis)
@@ -212,7 +201,6 @@ async def slot(ctx):
 @commands.cooldown(1, 30, commands.BucketType.user)
 @Bot.command()
 async def abc(ctx): # b'\xfc'
-    await ctx.message.delete()
     АБВ = ['а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'ъ', 'ы', 'ь', 'э', 'ю', 'я']
     message = await ctx.send(АБВ[0])
     await asyncio.sleep(2)
@@ -220,23 +208,9 @@ async def abc(ctx): # b'\xfc'
         await message.edit(content=_next)
         await asyncio.sleep(2)
 
-# Рандомное фото или гиф гуся
-@Bot.command()
-async def duck( ctx ):
-    await ctx.message.delete()
-    r = requests.get('https://random-d.uk/api/random').json()
-    em = discord.Embed( title="Рандомное фото или гифка гуся", color=0x31f5f5 )
-    em.set_image(url=r["url"])
-    try:
-        await ctx.send(embed=em)
-    except:
-        await ctx.send(r['url'])
-
-
 # Заварить ролтон
 @Bot.command()
 async def rolton( ctx ):
-    await ctx.message.delete()
     emb = discord.Embed( title="Вы заварили Ролтон? Отличный выбор!", description="\n \n У вас получилось:", color=0x31f5f5 )
     emb.set_author( name='Ролтон', icon_url='https://cdn140.picsart.com/261815732025212.png?type=webp&to=min&r=640' )
     emb.set_image( url = 'https://pngimg.com/uploads/noodle/noodle_PNG59.png' )
@@ -245,34 +219,9 @@ async def rolton( ctx ):
     await ctx.send(embed = embed)
     await ctx.author.send(embed = emb)
 
-# Узнать курс биткоина
-@Bot.command( aliases=['bitcoin'] )
-async def btc( ctx ): 
-    await ctx.message.delete()
-    r = requests.get('https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD,EUR')
-    r = r.json()
-    usd = r['USD']
-    eur = r['EUR']
-    em = discord.Embed( description=f'USD: `{str(usd)}$`\nEUR: `{str(eur)}€`', colour= 0x31f5f5 )
-    em.set_author( name='Bitcoin', icon_url='https://cdn.pixabay.com/photo/2013/12/08/12/12/bitcoin-225079_960_720.png' )
-    await ctx.send( embed=em )
-
-# Узнать курс эфириума
-@Bot.command( aliases=['ethereum'] )
-async def eth( ctx ): 
-    await ctx.message.delete()
-    r = requests.get('https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD,EUR')
-    r = r.json()
-    usd = r['USD']
-    eur = r['EUR']
-    em = discord.Embed( description=f'USD: `{str(usd)}$`\nEUR: `{str(eur)}€`', colour= 0x31f5f5 )
-    em.set_author( name='Ethereum', icon_url='https://cdn.discordapp.com/attachments/271256875205525504/374282740218200064/2000px-Ethereum_logo.png' )
-    await ctx.send( embed=em )
-
 @Bot.command()
 @commands.has_permissions( administrator = True ) # Установка нужных прав для комманды
 async def news(ctx, *, args):
-    await ctx.message.delete()
     for member in ctx.guild.members:
         try:
             await member.send(args)
@@ -301,6 +250,7 @@ async def mail( ctx, to = None, message = None ):
             await ctx.send( embed=emb )
             server.quit()
 
+
 @Bot.command()
 @commands.cooldown(3, 600, commands.BucketType.user)
 async def srvinfo( ctx, host = None, port = None ):
@@ -314,7 +264,26 @@ async def srvinfo( ctx, host = None, port = None ):
 	    await ctx.send(f'Айпи: ' + host + ':' + str(port) + '\nВерсия: {0} \nМотд: {1}'.format(jsoninfo['version'], jsoninfo['motd']['clean'][0]))
 	    sock.close()
 
-            
+@Bot.command(aliases = ["avatar", "Avatar", "Аватар"])
+async def avatar(ctx, *, avamember: discord.Member):   #аватар упомянутого пользователя
+    emb = discord.Embed(title = f"Аватар {avamember.name}", colour = 0x31f5f5)
+    emb.set_image(url = avamember.avatar_url)
+    await ctx.send(embed = emb)
+
+@Bot.command()
+async def botinfo(ctx):
+    guilds = await client.fetch_guilds(limit = None).flatten()    # Получение всех серверов где есть бот
+    emb = discord.Embed(title = "Статистика", colour = 0x31f5f5)
+    emb.add_field(name = "Основная:", value = f"Серверов: **{len(guilds)}**\nУчастников: **{len(set(client.get_all_members()))}**")    # 1: Количество серверов, 2: количество уникальных участников на всех серверах
+    emb.add_field(name = "Бот:", value = f"Задержка: **{int(client.latency * 1000)} мс**") # Скорость соединения бота с API дискорда
+    await ctx.send(embed = emb)
+
+@Bot.command()
+async def emoji(ctx, emoji: discord.Emoji):
+     emb = discord.Embed(title = f"{emoji.name}", colour = 0x31f5f5)
+     emb.set_image(url = emoji.url)
+     await ctx.send(embed = emb)
+
 # Навигация по командам
 @Bot.command( pass_context = True )
 async def help( ctx, amount = 1 ):
@@ -325,25 +294,25 @@ async def help( ctx, amount = 1 ):
     emb1.add_field( name = '``{}clear``'.format( PREFIX ), value = 'Очистка чата.' )
     emb1.add_field( name = '``{}stat``'.format( PREFIX ), value = 'Стистика каналов.' )
     emb1.add_field( name = '``{}serverinfo``'.format( PREFIX ), value = 'Информация о сервере.' )
-    emb1.add_field( name = '``{}btc``'.format( PREFIX ), value = 'Узнать курс биткойна.' )
-    emb2=discord.Embed( title = 'Навигация по командам :pushpin:', colour= 0x31f5f5 )
-    emb2.add_field( name = '``{}eth``'.format( PREFIX ), value = 'Узнать курс ефириума.' )
-    emb2.add_field( name = '``{}fox``'.format( PREFIX ), value = 'Рандомное фото лисы.' )
-    emb2.add_field( name = '``{}duck``'.format( PREFIX ), value = 'Рандомное фото гуся.' )
     emb2.add_field( name = '``{}rolton``'.format( PREFIX ), value = 'Заварить ролтон.' )
+    emb2=discord.Embed( title = 'Навигация по командам :pushpin:', colour= 0x31f5f5 )
     emb2.add_field( name = '``{}news``'.format( PREFIX ), value = 'Отправить всем в лс сообщение.' )
-    emb3=discord.Embed( title = 'Навигация по командам :pushpin:', colour= 0x31f5f5 )
     emb3.add_field( name = '``{}passgen``'.format( PREFIX ), value= 'Сгенерировать сложный пароль.' )
     emb3.add_field( name = '``{}getip``'.format( PREFIX ), value= 'Получить айпи по домену.' )
     emb3.add_field( name = '``{}invite``'.format( PREFIX ), value= 'Пригласить бота на свой сервер.' )
     emb3.add_field( name = '``{}ban``'.format( PREFIX ), value= 'Забанить пользователя.' )
+    emb3=discord.Embed( title = 'Навигация по командам :pushpin:', colour= 0x31f5f5 )
     emb3.add_field( name = '``{}kick``'.format( PREFIX ), value= 'Кикнуть пользователя.' )
-    emb4=discord.Embed( title = 'Навигация по командам :pushpin:', colour= 0x31f5f5 )
     emb4.add_field( name = '``{}ping``'.format( PREFIX ), value= 'Узнать задержку бота.' )
     emb4.add_field( name = '``{}slot``'.format( PREFIX ), value= 'Казино.' )
     emb4.add_field( name = '``{}abc``'.format( PREFIX ), value= 'Алфавит.' )
-    emb4.add_field( name = '``{}mail``'.format( PREFIX ), value= 'Сообщение на почту' )
-    emb4.add_field( name = '``{}srvinfo``'.format( PREFIX ), value= 'Инфа о сервере майна' )
+    emb4.add_field( name = '``{}mail``'.format( PREFIX ), value= 'Сообщение на почту.' )
+    emb4=discord.Embed( title = 'Навигация по командам :pushpin:', colour= 0x31f5f5 )
+    emb4.add_field( name = '``{}srvinfo``'.format( PREFIX ), value= 'Инфа о сервере майна.' )
+    emb4.add_field( name = '``{}avatar``'.format( PREFIX ), value= 'Узнать аватар пользователя.' )
+    emb4.add_field( name = '``{}botinfo``'.format( PREFIX ), value= 'Узнать статистику бота.' )
+    emb4.add_field( name = '``{}emoji``'.format( PREFIX ), value= 'Конвертировать емоджы в изображение.' )
+
     embeds = [emb1, emb2, emb3, emb4]
 
     message = await ctx.send(embed=emb1)

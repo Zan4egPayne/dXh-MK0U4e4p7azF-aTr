@@ -284,7 +284,7 @@ async def emoji(ctx, emoji: discord.Emoji):
      emb.set_image(url = emoji.url)
      await ctx.send(embed = emb)
 
-@client.command(pass_context=True,aliases=["кф","коин","коинфлип"])
+@Bot.command(pass_context=True,aliases=["кф","коин","коинфлип"])
 async def coinflip(ctx,*,arg):
     if arg.lower() in ["орел","орёл","решка","р","о"]:
         ajkd=random.choice(["орел","решка"])

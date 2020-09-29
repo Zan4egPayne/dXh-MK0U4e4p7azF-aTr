@@ -16,7 +16,6 @@ from email.mime.text import MIMEText
 import json, socket, threading, time, concurrent.futures
 from six.moves import urllib
 from random import choice
-import nekos
 
 
 PREFIX = 'i.' # Переменная префикса
@@ -285,64 +284,6 @@ async def emoji(ctx, emoji: discord.Emoji):
      emb.set_image(url = emoji.url)
      await ctx.send(embed = emb)
 
-@client.command(aliases = ['Обнять'])
-async def hug(ctx, member: discord.Member = None):
-	if member == ctx.author:
-
-		embed = discord.Embed(description = f'{ctx.author.mention} обнимает сам себя  ')
-	
-		embed.set_image(url=nekos.img('hug'))
-	
-
-		await ctx.send(embed = embed)
-		return
-
-	if member == None:
-		
-		embed = discord.Embed(description = f'{ctx.author.mention} обнимает сам себя  ')
-	
-		embed.set_image(url=nekos.img('hug'))
-	
-
-		await ctx.send(embed = embed)
-		return
-
-
-	embed1 = discord.Embed(description = f'{ctx.author.mention} обнял(а) {member.mention}')
-	embed1.set_image(url=nekos.img('hug'))
-	check_hug = await ctx.send(embed = embed1)
-	await check_hug.add_reaction('💚')
-	await check_hug.add_reaction('💔')
-	def check(reaction, user):
-		return user == member and reaction.emoji in '💚💔:'
-
-	try:
-		reaction, user = await client.wait_for('reaction_add', check = check, timeout = 30)
-	except asyncio.TimeoutError:
-		await ctx.send('')
-		return
-
-	if reaction.emoji == '💚':
-
-		embed = discord.Embed(description = f'{member.mention} обнял(а) {ctx.author.mention}, в ответ ')
-	
-		embed.set_image(url=nekos.img('hug'))
-	
-
-		await ctx.send(embed = embed)
-		
-	if reaction.emoji == '💔':
-
-		gif = ['https://cdn.discordapp.com/attachments/734820577302544518/745326365519380510/image_861311161736251195541.gif','https://cdn.discordapp.com/attachments/734820577302544518/745326390764634152/image_861311160350211560551.gif','https://cdn.discordapp.com/attachments/734820577302544518/745326595383754842/OLmS.gif','https://cdn.discordapp.com/attachments/734820577302544518/745327016462516304/OvTg.gif','https://cdn.discordapp.com/attachments/734820577302544518/745327168514686986/1339420713_tumblr_m5domfmsvs1qzd219o1_500.gif']
-
-		krik = [f'{member.mention} убегает от {ctx.author.mention}, он такой страшный..' , f'{member.mention} убегает от  {ctx.author.mention} , вот дурачок!']
-
-		embed = discord.Embed(description = random.choice(krik))
-
-		embed.set_image(url = random.choice(gif))
-
-		await ctx.send(embed = embed)
-
 @client.command(pass_context=True,aliases=["кф","коин","коинфлип"])
 async def coinflip(ctx,*,arg):
     if arg.lower() in ["орел","орёл","решка","р","о"]:
@@ -385,9 +326,7 @@ async def help( ctx, amount = 1 ):
     emb4.add_field( name = '``{}userpic``'.format( PREFIX ), value= 'Узнать аватар пользователя.' )
     emb4.add_field( name = '``{}botinfo``'.format( PREFIX ), value= 'Узнать статистику бота.' )
     emb4.add_field( name = '``{}emoji``'.format( PREFIX ), value= 'Конвертировать емоджы в изображение.' )
-    emb4.add_field( name = '``{}hug``'.format( PREFIX ), value= 'Обнять пользователя.' )
-    emb5=discord.Embed( title = 'Навигация по командам :pushpin:', colour= 0x31f5f5 )
-    emb5.add_field( name = '``{}coinflip``'.format( PREFIX ), value= 'Подбросить монетку.' )
+    emb4.add_field( name = '``{}coinflip``'.format( PREFIX ), value= 'Подбросить монетку.' )
 
     embeds = [emb1, emb2, emb3, emb4]
 

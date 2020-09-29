@@ -3,4 +3,3 @@ asyncio
 datetime
 Cybernator
 six
-nekos

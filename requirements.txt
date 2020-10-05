@@ -3,3 +3,4 @@ asyncio
 datetime
 Cybernator
 six
+pyowm

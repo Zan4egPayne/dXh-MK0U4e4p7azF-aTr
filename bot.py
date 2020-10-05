@@ -126,6 +126,17 @@ async def passgen( ctx ):
     em = discord.Embed( description=f'✅ Ваш пароль: {password}\n⚠️ Никому не показывайте этот пароль!', colour=0x31f5f5 )
     await ctx.send( embed = emb )
     await ctx.author.send( embed = em )
+	
+	
+@Bot.command()
+async def randcolor(ctx):
+	await ctx.message.delete()
+	random_number = random.randint(0,16777215)
+	hex_number = str(hex(random_number))
+	hex_number ='#'+ hex_number[2:]
+	em = discord.Embed(title="Random Color Hex", description = f'Hex color: {hex_number}', color=random_number)
+	await ctx.send(embed = em)
+	log("Command randcolor executed.")
 
 # Получение айпи по домену
 @Bot.command()

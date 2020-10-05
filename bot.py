@@ -360,8 +360,12 @@ async def help( ctx, amount = 1 ):
     emb4.add_field( name = '``{}botinfo``'.format( PREFIX ), value= 'Узнать статистику бота.' )
     emb4.add_field( name = '``{}emoji``'.format( PREFIX ), value= 'Конвертировать емоджы в изображение.' )
     emb4.add_field( name = '``{}coinflip``'.format( PREFIX ), value= 'Подбросить монетку.' )
+    emb5=discord.Embed( title = 'Навигация по командам :pushpin:', colour= 0x31f5f5 )
+    emb5.add_field( name = '``{}randcolor``'.format( PREFIX ), value= 'Рандомный цвет' )
+    emb5.add_field( name = '``{}achievement``'.format( PREFIX ), value= 'Сделать кастомную ачивку' )
+    emb5.add_field( name = '``{}weather``'.format( PREFIX ), value= 'Получить погоду' )
 
-    embeds = [emb1, emb2, emb3, emb4]
+    embeds = [emb1, emb2, emb3, emb4, emb5]
 
     message = await ctx.send(embed=emb1)
     page = pag(Bot, message, only=ctx.author, use_more=False, embeds=embeds)

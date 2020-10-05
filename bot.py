@@ -8,6 +8,7 @@ import asyncio
 import socket
 import smtplib
 import datetime
+import pyowm
 from datetime import timedelta
 import os
 from Cybernator import Paginator as pag
@@ -137,6 +138,18 @@ async def randcolor(ctx):
 	em = discord.Embed(title="Random Color Hex", description = f'Hex color: {hex_number}', color=random_number)
 	await ctx.send(embed = em)
 	log("Command randcolor executed.")
+	
+	
+@Bot.command()
+async def weather(ctx, city):
+	await ctx.message.delete()
+	owm = pyowm.OWM('a99967bc9ee70d5b4bd387902982f400', language = "RU")
+	observation = owm.weather_at_place( city )
+	w = observation.get_weather()
+	temperature = w.get_temperature('celsius')['temp']
+	await ctx.send( "В городе " + city + " сейчас " + str(temperature) + " градусов по Цельсию.\n" + "Погода: " + w.get_detailed_status() )
+	
+	
 
 # Получение айпи по домену
 @Bot.command()

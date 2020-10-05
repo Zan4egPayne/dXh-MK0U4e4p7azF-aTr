@@ -152,7 +152,16 @@ async def portscan( ctx, port = None, ip = None):
                 if Bot.connect_ex((ip, port)):
                     await ctx.send( f'Порт {port} закрыт!' )
                 else:
-                    await ctx.send( f'Порт {port} открыт!' )   
+                    await ctx.send( f'Порт {port} открыт!' )
+		
+		
+@Bot.command()
+async def achievement( ctx, *, addition ):
+    await ctx.message.delete()
+    addition = addition.replace(" ", "+")
+    url = f"https://minecraftskinstealer.com/achievement/2/New+advancement%21/{addition}"
+    await ctx.send(url)
+	
 
 @Bot.command()
 @commands.has_permissions(kick_members=True)

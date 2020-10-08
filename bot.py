@@ -343,11 +343,11 @@ async def coinflip(ctx,*,arg):
 @Bot.command()
 async def qrcreate( ctx, *, value ):
 
-	qr = qrcode.make(value)
-	name = ctx.author.id + get_random_string(6) + ".png"
-	qr.save(name)
+    qr = qrcode.make(value)
+    name = ctx.author.id + get_random_string(6) + ".png"
+    qr.save(name)
 
-	await ctx.send("Готово! QRCODE успешно создан!", file = open(name, "r"))
+    await ctx.send("Готово! QRCODE успешно создан!", file = open(name, "r"))
 
 
 # Навигация по командам

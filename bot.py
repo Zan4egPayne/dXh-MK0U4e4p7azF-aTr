@@ -344,10 +344,11 @@ async def coinflip(ctx,*,arg):
 async def qrcreate( ctx, *, value ):
 
     qr = qrcode.make(value)
-    name = ctx.author.id + get_random_string(6) + ".png"
+    id = str(ctx.author.id)
+    name = id + get_random_string(6) + ".png"
     qr.save(name)
 
-    await ctx.send("Готово! QRCODE успешно создан!", file = open(name, "r"))
+    await ctx.send("Готово! QRCODE успешно создан!", file=discord.File(name))
 
 
 # Навигация по командам
@@ -382,6 +383,7 @@ async def help( ctx, amount = 1 ):
     emb5.add_field( name = '``{}randcolor``'.format( PREFIX ), value= 'Рандомный цвет' )
     emb5.add_field( name = '``{}achievement``'.format( PREFIX ), value= 'Сделать кастомную ачивку' )
     emb5.add_field( name = '``{}weather``'.format( PREFIX ), value= 'Получить погоду' )
+    emb5.add_field( name = '``{}qrcreate``'.format( PREFIX ), value= 'Создать QRCODE' )
 
     embeds = [emb1, emb2, emb3, emb4, emb5]
 

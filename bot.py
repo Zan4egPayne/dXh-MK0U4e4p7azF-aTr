@@ -17,12 +17,19 @@ from email.mime.text import MIMEText
 import json, socket, threading, time, concurrent.futures
 from six.moves import urllib
 from random import choice
+import qrcode
+import string
 
 
 PREFIX = 'i.' # Переменная префикса
 
 Bot = commands.Bot( command_prefix = PREFIX ) # Установка префикса бота
 @Bot.remove_command('help') #Удаление стандартной комманды help
+
+def get_random_string(length):
+	letters = string.ascii_letters + string.digits
+	result_str = ''.join(random.choice(letters) for i in range(length))
+	return result_str
 
 # При загрузке бота
 @Bot.event
@@ -331,6 +338,17 @@ async def coinflip(ctx,*,arg):
             await ctx.send(embed=discord.Embed(title="Вы проиграли",description="Выпала решка",color=0x31f5f5))
     else:
         await ctx.send(embed=discord.Embed(title="Ошибка",description="Вы не указали на что ставите[орел,решка]",color=0x31f5f5))
+	
+	
+@Bot.command()
+async def qrcreate( ctx, *, value ):
+
+	qr = qrcode.make(value)
+	name = ctx.author.id + get_random_string(6) + ".png"
+	qr.save(name)
+
+	await ctx.send("Готово! QRCODE успешно создан!", file = open(name, "r"))
+
 
 # Навигация по командам
 @Bot.command( pass_context = True )

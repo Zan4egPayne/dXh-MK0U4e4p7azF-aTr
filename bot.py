@@ -18,9 +18,6 @@ import json, socket, threading, time, concurrent.futures
 from six.moves import urllib
 from random import choice
 import string
-import youtube_dl
-from discord.utils import get
-import ffmpeg
 
 
 PREFIX = 'i.' # Переменная префикса
@@ -340,72 +337,6 @@ async def coinflip(ctx,*,arg):
             await ctx.send(embed=discord.Embed(title="Вы проиграли",description="Выпала решка",color=0x31f5f5))
     else:
         await ctx.send(embed=discord.Embed(title="Ошибка",description="Вы не указали на что ставите[орел,решка]",color=0x31f5f5))
-	
-@Bot.command()
-async def join(ctx):
-	global voice
-	channel = ctx.message.author.voice.channel
-	voice = get(Bot.voice_clients, guild = ctx.guild)
-
-	if voice and voice.is_connected():
-		await voice.move_to(channel)
-	else:
-		voice = await channel.connect()
-		await ctx.send(f'Бот присоеденился к каналу: {channel}')
-
-@Bot.command()
-async def leave(ctx):
-	channel = ctx.message.author.voice.channel
-	voice = get(Bot.voice_clients, guild = ctx.guild)
-
-	if voice and voice.is_connected():
-		await voice.disconnect()
-	else:
-		voice = await connect.channel()
-		await ctx.send(f'Бот вышел с канала: {channel}')
-
-@Bot.command(pass_context=True, aliases=['p', 'pla'])
-async def play(ctx, url: str):
-
-    song_there = os.path.isfile("song.mp3")
-    try:
-        if song_there:
-            os.remove("song.mp3")
-            print("Removed old song file")
-    except PermissionError:
-        print("Trying to delete song file, but it's being played")
-        await ctx.send("ERROR: Музыка уже играет")
-        return
-
-    await ctx.send("Подождите, идёт загрузка...")
-
-    voice = get(Bot.voice_clients, guild=ctx.guild)
-
-    ydl_opts = {
-        'format': 'bestaudio/best',
-        'postprocessors': [{
-            'key': 'FFmpegExtractAudio',
-            'preferredcodec': 'mp3',
-            'preferredquality': '192',
-        }],
-    }
-
-    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-        print("Скачивание аудио\n")
-        ydl.download([url])
-
-    for file in os.listdir("./"):
-        if file.endswith(".mp3"):
-            name = file
-            print(f"Renamed File: {file}\n")
-            os.rename(file, "song.mp3")
-
-    voice.play(discord.FFmpegPCMAudio("song.mp3"), after=lambda e: print("Музыка готова!"))
-    voice.source = discord.PCMVolumeTransformer(voice.source)
-    voice.source.volume = 0.07
-
-    nname = name.rsplit("-", 2)
-    await ctx.send(f"Играет: {nname[0]}")
 	
 # Навигация по командам
 @Bot.command( pass_context = True )

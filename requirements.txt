@@ -7,3 +7,4 @@ pyowm
 youtube-dl
 ffmpeg
 discord-py[voice]
+PyNaCl

@@ -18,7 +18,7 @@ import json, socket, threading, time, concurrent.futures
 from six.moves import urllib
 from random import choice
 import string
-import youtube-dl
+import youtube_dl
 from discord.utils import get
 
 

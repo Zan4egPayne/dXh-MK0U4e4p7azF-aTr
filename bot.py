@@ -20,7 +20,6 @@ from random import choice
 import string
 import youtube_dl
 from discord.utils import get
-import PyNaCl
 
 
 PREFIX = 'i.' # Переменная префикса

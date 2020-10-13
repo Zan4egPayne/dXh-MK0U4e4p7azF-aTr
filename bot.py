@@ -377,9 +377,9 @@ async def play(ctx, url: str):
         await ctx.send("ERROR: Музыка уже играет")
         return
 
-    await ctx.send("Getting everything ready now")
+    await ctx.send("Подождите, идёт загрузка...")
 
-    voice = get(bot.voice_clients, guild=ctx.guild)
+    voice = get(Bot.voice_clients, guild=ctx.guild)
 
     ydl_opts = {
         'format': 'bestaudio/best',

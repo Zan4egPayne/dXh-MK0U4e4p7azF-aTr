@@ -4,4 +4,6 @@ datetime
 Cybernator
 six
 pyowm
-qrcode
+youtube-dl
+ffmpeg
+discord-py[voice]

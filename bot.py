@@ -17,8 +17,9 @@ from email.mime.text import MIMEText
 import json, socket, threading, time, concurrent.futures
 from six.moves import urllib
 from random import choice
-import qrcode
 import string
+import youtube-dl
+from discord.utils import get
 
 
 PREFIX = 'i.' # Переменная префикса
@@ -339,16 +340,69 @@ async def coinflip(ctx,*,arg):
     else:
         await ctx.send(embed=discord.Embed(title="Ошибка",description="Вы не указали на что ставите[орел,решка]",color=0x31f5f5))
 	
-	
 @Bot.command()
-async def qrcreate( ctx, *, value ):
+async def join(ctx):
+	global voice
+	channel = ctx.message.author.voice.channel
+	voice = get(client.voice_clients, guild = ctx.guild)
 
-    qr = qrcode.make(value)
-    id = str(ctx.author.id)
-    name = id + get_random_string(6) + ".png"
-    qr.save(name)
+	if voice and voice.is_connected():
+		await voice.move_to(channel)
+	else:
+		voice = await channel.connect()
+		await ctx.send(f'Бот присоеденился к каналу: {channel}')
 
-    await ctx.send("Готово! QRCODE успешно создан!", file=discord.File(name))
+@Bot.command()
+async def leave(ctx):
+	channel = ctx.message.author.voice.channel
+	voice = get(client.voice_clients, guild = ctx.guild)
+
+	if voice and voice.is_connected():
+		await voice.disconnect()
+	else:
+		voice = await connect.channel()
+		await ctx.send(f'Бот вышел с канала: {channel}')
+
+@Bot.command()
+async def play(ctx, url : str):
+	song_there = os.path.isfile('song.mp3')
+
+	try:
+		if song_there:
+			os.remove('song.mp3')
+			print('[log] Старый файл удален')
+	except PermissionError:
+		print('[log] Не удалось удалить файл')
+
+    await ctx.send('Пожалуйста подождите...')
+
+    voice = get(client.voice_clients, guild = ctx.guild)
+
+    ydl_opts = {
+        'format' : 'bestaudio/best'
+        'postprocessors' : [{
+            'key' : 'FFmpegExtractAudio',
+            'preferredcodec' : 'mp3',
+            'preferredquality' : '192'
+        }]
+    }
+
+    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+    	print('[log] Загружаю музыку...')
+    	ydl.download([url])
+
+    for file in os.listdir('./'):
+        if file.endswith('mp3'):
+        	name = file
+        	print('[log] Переименовываю файл: {file}')
+        	os.rename(file, 'song.mp3')
+
+    voice.play(discord.FFmpegPCMAudio('song.mp3'), after = lambda e: print(f'[log] {name}, музыка закончила свое проигрывание'))
+    voice.source = discord.PCMVolumeTransformer(voice.source)
+    voice.source.volume = 0.07
+
+    song_name = name.rsplit('-', 2) 
+    await ctx.send(f'Сейчас проигрывается музыка: {song_name[0]}')
 
 
 # Навигация по командам
@@ -383,7 +437,6 @@ async def help( ctx, amount = 1 ):
     emb5.add_field( name = '``{}randcolor``'.format( PREFIX ), value= 'Рандомный цвет' )
     emb5.add_field( name = '``{}achievement``'.format( PREFIX ), value= 'Сделать кастомную ачивку' )
     emb5.add_field( name = '``{}weather``'.format( PREFIX ), value= 'Получить погоду' )
-    emb5.add_field( name = '``{}qrcreate``'.format( PREFIX ), value= 'Создать QRCODE' )
 
     embeds = [emb1, emb2, emb3, emb4, emb5]
 

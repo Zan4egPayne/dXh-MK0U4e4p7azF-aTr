@@ -364,7 +364,7 @@ async def leave(ctx):
 		voice = await connect.channel()
 		await ctx.send(f'Бот вышел с канала: {channel}')
 
-@bot.command(pass_context=True, aliases=['p', 'pla'])
+@Bot.command(pass_context=True, aliases=['p', 'pla'])
 async def play(ctx, url: str):
 
     song_there = os.path.isfile("song.mp3")

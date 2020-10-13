@@ -374,8 +374,6 @@ async def play(ctx, url : str):
 	except PermissionError:
 		print('[log] Не удалось удалить файл')
 
-    await ctx.send('Пожалуйста подождите...')
-
     voice = get(client.voice_clients, guild = ctx.guild)
 
     ydl_opts = {

@@ -344,7 +344,7 @@ async def coinflip(ctx,*,arg):
 async def join(ctx):
 	global voice
 	channel = ctx.message.author.voice.channel
-	voice = get(client.voice_clients, guild = ctx.guild)
+	voice = get(Bot.voice_clients, guild = ctx.guild)
 
 	if voice and voice.is_connected():
 		await voice.move_to(channel)
@@ -355,7 +355,7 @@ async def join(ctx):
 @Bot.command()
 async def leave(ctx):
 	channel = ctx.message.author.voice.channel
-	voice = get(client.voice_clients, guild = ctx.guild)
+	voice = get(Bot.voice_clients, guild = ctx.guild)
 
 	if voice and voice.is_connected():
 		await voice.disconnect()

@@ -27,7 +27,6 @@ PREFIX = 'i.' # Переменная префикса
 
 Bot = commands.Bot( command_prefix = PREFIX ) # Установка префикса бота
 @Bot.remove_command('help') #Удаление стандартной комманды help
-player_dict = dict()
 
 def get_random_string(length):
 	letters = string.ascii_letters + string.digits
@@ -365,17 +364,6 @@ async def leave(ctx):
 		voice = await connect.channel()
 		await ctx.send(f'Бот вышел с канала: {channel}')
 
-@Bot.command(pass_context=True)
-async def play (ctx, url):
-    channel = ctx.message.author.voice_channel
-    await Bot.join_voice_channel(channel)
-    server = ctx.message.server
-    voice = Bot.voice_client_in(server)
-    player = await voice.create_ytdl_player(url)
-    player_dict[server.id] = player
-    await Bot.send_message(ctx.message.channel, "Играет `%s` сейчас" % player.title)
-    player.start()
-	
 @bot.command(pass_context=True, aliases=['p', 'pla'])
 async def play(ctx, url: str):
 

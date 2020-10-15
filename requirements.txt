@@ -4,4 +4,3 @@ datetime
 Cybernator
 six
 pyowm
-BeautifulSoup4

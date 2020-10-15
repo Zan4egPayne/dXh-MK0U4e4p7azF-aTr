@@ -383,10 +383,10 @@ async def channelinfo(ctx, url):
 			'name': item.find(class_ = 'style-scope ytd-channel-name')
 			})
 
-		    for comp in comps:
-		    	if comp({'value'}):
-		    		em.add_field(name=comp({'name'}), value=comp({'value'}), inline=True)
-		    return await ctx.send(embed=em)
+	for comp in comps:
+		if comp({'value'}):
+		    em.add_field(name=comp({'name'}), value=comp({'value'}), inline=True)
+		return await ctx.send(embed=em)
 
 parse()
 

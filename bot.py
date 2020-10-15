@@ -19,7 +19,6 @@ from six.moves import urllib
 from random import choice
 import string
 import requests
-from bs4 import BeatifulSoup
 
 
 PREFIX = 'i.' # Переменная префикса
@@ -364,31 +363,6 @@ async def geoip(ctx, *, ipaddr: str = '1.3.3.7'): # b'\xfc'
         if field['value']:
             em.add_field(name=field['name'], value=field['value'], inline=True)
     return await ctx.send(embed=em)
-
-@Bot.command()
-async def channelinfo(ctx, url):
-	URL = '{url}'
-	HEADERS = {
-	   'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36'
-	}
-
-	response = requests.get(URL, headers = HEADERS)
-	soup = BeatifulSoup(response.content, 'html.parser')
-	items = soup.findAll('', class_ = 'style-scope ytd-c4-tabbed-header-renderer')
-	em = discord.Embed( colour= 0x31f5f5 )
-	comps = []
-
-	for item in items:
-		comps.append({
-			'name': item.find(class_ = 'style-scope ytd-channel-name')
-			})
-
-	for comp in comps:
-		if comp({'value'}):
-		    em.add_field(name=comp({'name'}), value=comp({'value'}), inline=True)
-		return await ctx.send(embed=em)
-
-parse()
 
 # Навигация по командам
 @Bot.command( pass_context = True )

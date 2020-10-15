@@ -18,6 +18,7 @@ import json, socket, threading, time, concurrent.futures
 from six.moves import urllib
 from random import choice
 import string
+import requests
 
 
 PREFIX = 'i.' # Переменная префикса

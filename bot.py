@@ -339,6 +339,31 @@ async def coinflip(ctx,*,arg):
     else:
         await ctx.send(embed=discord.Embed(title="Ошибка",description="Вы не указали на что ставите[орел,решка]",color=0x31f5f5))
 	
+@Bot.command(aliases=['geolocate', 'iptogeo', 'iptolocation', 'ip2geo', 'ip'])
+async def geoip(ctx, *, ipaddr: str = '1.3.3.7'): # b'\xfc'
+    await ctx.message.delete()
+    r = requests.get(f'http://extreme-ip-lookup.com/json/{ipaddr}')
+    geo = r.json()
+    em = discord.Embed( colour= 0x31f5f5 )
+    fields = [
+        {'name': 'Айпи', 'value': geo['query']},
+        {'name': 'Тип', 'value': geo['ipType']},
+        {'name': 'Страна', 'value': geo['country']},
+        {'name': 'Город', 'value': geo['city']},
+        {'name': 'Континент', 'value': geo['continent']},
+        {'name': 'Название', 'value': geo['ipName']},
+        {'name': 'Интернет-провайдер', 'value': geo['isp']},
+        {'name': 'Широта', 'value': geo['lat']},
+        {'name': 'Долгота', 'value': geo['lon']},
+        {'name': 'Org', 'value': geo['org']},
+        {'name': 'Область', 'value': geo['region']},
+        {'name': 'Статус', 'value': geo['status']},
+    ]
+    for field in fields:
+        if field['value']:
+            em.add_field(name=field['name'], value=field['value'], inline=True)
+    return await ctx.send(embed=em)
+
 # Навигация по командам
 @Bot.command( pass_context = True )
 async def help( ctx, amount = 1 ):
@@ -368,9 +393,10 @@ async def help( ctx, amount = 1 ):
     emb4.add_field( name = '``{}emoji``'.format( PREFIX ), value= 'Конвертировать емоджы в изображение.' )
     emb4.add_field( name = '``{}coinflip``'.format( PREFIX ), value= 'Подбросить монетку.' )
     emb5=discord.Embed( title = 'Навигация по командам :pushpin:', colour= 0x31f5f5 )
-    emb5.add_field( name = '``{}randcolor``'.format( PREFIX ), value= 'Рандомный цвет' )
-    emb5.add_field( name = '``{}achievement``'.format( PREFIX ), value= 'Сделать кастомную ачивку' )
-    emb5.add_field( name = '``{}weather``'.format( PREFIX ), value= 'Получить погоду' )
+    emb5.add_field( name = '``{}randcolor``'.format( PREFIX ), value= 'Рандомный цвет.' )
+    emb5.add_field( name = '``{}achievement``'.format( PREFIX ), value= 'Сделать кастомную ачивку.' )
+    emb5.add_field( name = '``{}weather``'.format( PREFIX ), value= 'Получить погоду.' )
+    emb5.add_field( name = '``{}geoip``'.format( PREFIX ), value= 'Получить данные по айпи.' )
 
     embeds = [emb1, emb2, emb3, emb4, emb5]
 

@@ -19,7 +19,6 @@ from six.moves import urllib
 from random import choice
 import string
 import requests
-import wikipedia
 
 
 PREFIX = 'i.' # Переменная префикса

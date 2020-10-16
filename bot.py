@@ -22,12 +22,6 @@ import string
 import requests
 import pyshorteners
 
-def get_prefix(client, message):
-    with open('prefixes.json', 'r') as f:
-        prefixes = json.load(f)
-
-    return prefixes[str(message.guild.id)]
-
 PREFIX = get_prefix # Переменная префикса
 
 Bot = commands.Bot( command_prefix = PREFIX ) # Установка префикса бота
@@ -43,7 +37,7 @@ def get_random_string(length):
 async def on_ready():
     activity = discord.Game(name = "Innuendo | i.help", url='https://twitch.com/zan4egpayne')
     await Bot.change_presence( status = discord.Status.online, activity = activity )
-    for guild in client.guilds:
+    for guild in Bot.guilds:
         with open('prefixes.json', 'r') as f:
         prefixes = json.load(f)
 

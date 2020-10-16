@@ -23,10 +23,10 @@ import requests
 import pyshorteners
 
 def get_prefix(client, message):
-	with open('prefixes.json', 'r') as f:
-		prefixes = json.load(f)
+    with open('prefixes.json', 'r') as f:
+        prefixes = json.load(f)
 
-	return prefixes[str(message.guild.id)]
+    return prefixes[str(message.guild.id)]
 
 PREFIX = get_prefix # Переменная префикса
 

@@ -4,3 +4,4 @@ datetime
 Cybernator
 six
 pyowm
+pyshorteners

@@ -61,7 +61,7 @@ async def on_ready():
         await Bot.change_presence( status = discord.Status.online, activity = discord.Streaming(name = "http://innuendo.ml/", url='https://twitch.com/zan4egpayne') )
 	
 
-@client.event
+@Bot.event
 async def on_guild_join(guild):
     with open('prefixes.json', 'r') as f:
         prefixes = json.load(f)
@@ -71,7 +71,7 @@ async def on_guild_join(guild):
             json.dump(prefixes, f, indent=4)
 	
 	
-@client.event
+@Bot.event
 async def on_guild_remove(guild):
     with open('prefixes.json', 'r') as f:
         prefixes = json.load(f)
@@ -82,7 +82,7 @@ async def on_guild_remove(guild):
         json.dump(prefixes, f, indent=4)
 	
 	
-@client.command()
+@Bot.command()
 async def prefix(ctx, prefix):
     with open('prefixes.json', 'r') as f:
         prefixes = json.load(f)

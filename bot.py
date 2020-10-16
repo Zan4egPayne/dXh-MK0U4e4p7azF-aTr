@@ -19,6 +19,7 @@ from six.moves import urllib
 from random import choice
 import string
 import requests
+import pyshorteners
 
 
 PREFIX = 'i.' # Переменная префикса
@@ -366,12 +367,12 @@ async def geoip(ctx, *, ipaddr: str = '1.3.3.7'): # b'\xfc'
 
 
 @Bot.command()
-async def tinyurl(self, ctx, url : str = None):
+async def tinyurl(ctx, url : str = None):
     if url is None:
         await ctx.send(embed = discord.Embed(
                 title = "Укоротитель ссылок",
                 description = "Ошибка | Укажите ссылку которую хотите укоротить",
-                colour = discord.Color.red()
+                colour = 0x31f5f5
             ))
     else:
         shortener = pyshorteners.Shortener()

@@ -9,6 +9,7 @@ import socket
 import smtplib
 import datetime
 import pyowm
+import json
 from datetime import timedelta
 import os
 from Cybernator import Paginator as pag
@@ -21,8 +22,13 @@ import string
 import requests
 import pyshorteners
 
+def get_prefix(client, message):
+	with open('prefixes.json', 'r') as f:
+		prefixes = json.load(f)
 
-PREFIX = 'i.' # Переменная префикса
+	return prefixes[str(message.guild.id)]
+
+PREFIX = get_prefix # Переменная префикса
 
 Bot = commands.Bot( command_prefix = PREFIX ) # Установка префикса бота
 @Bot.remove_command('help') #Удаление стандартной комманды help
@@ -37,6 +43,12 @@ def get_random_string(length):
 async def on_ready():
     activity = discord.Game(name = "Innuendo | i.help", url='https://twitch.com/zan4egpayne')
     await Bot.change_presence( status = discord.Status.online, activity = activity )
+    for guild in client.guilds:
+        with open('prefixes.json', 'r') as f:
+        prefixes = json.load(f)
+
+        prefixes[str(guild.id)] = 'i.'
+	
     print("Logged in as Innuendo!")
     print("Innuendo Copyright 2020 By Zan4eg#5557 and Kostya#3533")
     print("Бот запущен и готов к работе!")
@@ -46,7 +58,42 @@ async def on_ready():
         await asyncio.sleep(8)
         await Bot.change_presence( status = discord.Status.online, activity = discord.Activity(type = discord.ActivityType.watching, name = f"{len(Bot.guilds)} серверов!") )
         await asyncio.sleep(8)
-        await Bot.change_presence( status = discord.Status.online, activity = discord.Streaming(name = "http://innuendo.ml/", url='https://twitch.com/zan4egpayne') )  
+        await Bot.change_presence( status = discord.Status.online, activity = discord.Streaming(name = "http://innuendo.ml/", url='https://twitch.com/zan4egpayne') )
+	
+
+@client.event
+async def on_guild_join(guild):
+    with open('prefixes.json', 'r') as f:
+        prefixes = json.load(f)
+        prefixes[str(guild.id)] = 'f!'
+
+        with open('prefixes.json', 'w') as f:
+            json.dump(prefixes, f, indent=4)
+	
+	
+@client.event
+async def on_guild_remove(guild):
+    with open('prefixes.json', 'r') as f:
+        prefixes = json.load(f)
+
+    prefixes.pop(str(guild.id))
+
+    with open('prefixes.json', 'w') as f:
+        json.dump(prefixes, f, indent=4)
+	
+	
+@client.command()
+async def prefix(ctx, prefix):
+    with open('prefixes.json', 'r') as f:
+        prefixes = json.load(f)
+
+    prefixes[str(ctx.guild.id)] = prefix
+
+    with open('prefixes.json', 'w') as f:
+        json.dump(prefixes, f, indent=4)
+
+    await ctx.send(embed = discord.Embed (title = "Изменено", description = f"Префикс изменён на: {prefix}") )
+
 
 # Информация о пользователе
 @Bot.command( pass_context=True )

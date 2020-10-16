@@ -365,16 +365,6 @@ async def geoip(ctx, *, ipaddr: str = '1.3.3.7'): # b'\xfc'
             em.add_field(name=field['name'], value=field['value'], inline=True)
     return await ctx.send(embed=em)
 
-@Bot.command()
-async def wiki(ctx, *, searc):
-	if searc is None:
-		await ctx.send(f"**{ctx.author}**, укажите что вы хотите найти \n Пример команды: ***i.wiki ``запрос``***")
-	else:
-        wikipedia.set_lang("ru") #ставим язык
-        search = input("{searc}") #записываем запрос пользователя в переменную
-
-        await ctx.send("wikipedia.summary(search)") #выводим текст в консоль =)
-
 # Навигация по командам
 @Bot.command( pass_context = True )
 async def help( ctx, amount = 1 ):

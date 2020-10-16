@@ -364,6 +364,21 @@ async def geoip(ctx, *, ipaddr: str = '1.3.3.7'): # b'\xfc'
             em.add_field(name=field['name'], value=field['value'], inline=True)
     return await ctx.send(embed=em)
 
+
+@Bot.command()
+async def tinyurl(self, ctx, url : str = None):
+    if url is None:
+        await ctx.send(embed = discord.Embed(
+                title = "Укоротитель ссылок",
+                description = "Ошибка | Укажите ссылку которую хотите укоротить",
+                colour = discord.Color.red()
+            ))
+    else:
+        shortener = pyshorteners.Shortener()
+        short_url = shortener.tinyurl.short(url)
+        await ctx.send("Ваша ссылка готова : " + short_url)
+	
+
 # Навигация по командам
 @Bot.command( pass_context = True )
 async def help( ctx, amount = 1 ):
@@ -381,6 +396,7 @@ async def help( ctx, amount = 1 ):
     emb1.add_field( name = '``{}botinfo``'.format( PREFIX ), value= 'Узнать статистику бота.' )
     emb1.add_field( name = '``{}weather``'.format( PREFIX ), value= 'Получить погоду.' )
     emb1.add_field( name = '``{}geoip``'.format( PREFIX ), value= 'Получить данные по айпи.' )
+    emb1.add_field( name = '``{}tinyurl``'.format( PREFIX ), value= 'Укоротить ссылку.' )
     emb2=discord.Embed( title = 'Навигация по командам :pushpin:', colour= 0x31f5f5 )
     emb2.set_thumbnail( url='https://cdn.discordapp.com/attachments/724886353065803778/766295281406181437/1abb1364301a30c7.png' )
     emb2.add_field( name = '``{}clear``'.format( PREFIX ), value = 'Очистка чата.' )

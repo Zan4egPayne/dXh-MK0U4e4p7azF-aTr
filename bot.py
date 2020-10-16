@@ -22,6 +22,12 @@ import string
 import requests
 import pyshorteners
 
+def get_prefix(client, message):
+    with open('prefixes.json', 'r') as f:
+        prefixes = json.load(f)
+
+    return prefixes[str(message.guild.id)]
+
 PREFIX = get_prefix # Переменная префикса
 
 Bot = commands.Bot( command_prefix = PREFIX ) # Установка префикса бота

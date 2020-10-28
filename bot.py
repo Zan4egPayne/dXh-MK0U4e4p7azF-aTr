@@ -382,7 +382,7 @@ async def tinyurl(ctx, url : str = None):
         await ctx.send("Ваша ссылка готова : " + short_url)
 	
 	
-@client.command(aliases = ["выбрать", "event", "ивент"])
+@Bot.command(aliases = ["выбрать", "event", "ивент"])
 @commands.has_permissions(administrator = True)
 async def choice(ctx, users : int = None):
 	await ctx.message.delete()

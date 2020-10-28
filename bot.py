@@ -381,6 +381,29 @@ async def tinyurl(ctx, url : str = None):
         short_url = shortener.tinyurl.short(url)
         await ctx.send("Ваша ссылка готова : " + short_url)
 	
+	
+@client.command(aliases = ["выбрать", "event", "ивент"])
+@commands.has_permissions(administrator = True)
+async def choice(ctx, users : int = None):
+	await ctx.message.delete()
+	if not users or users is None:
+		await ctx.send("Вы не ввели число участников!")
+
+	elif users > len(ctx.guild.members):
+		await ctx.send("Вы ввели слишком много участников!")
+
+	else:
+		global all_users
+		all_users = ''
+		for user in range(users):
+			rand_user = random.choice(ctx.guild.members)
+			role = discord.utils.get(ctx.guild.roles, name="Избранный")
+			await rand_user.add_roles(role)
+			all_users = all_users+rand_user.mention+'\n'
+
+		await ctx.send("Ребята которых выбрал бот:\n" + all_users)
+	
+	
 
 # Навигация по командам
 @Bot.command( pass_context = True )
@@ -417,6 +440,7 @@ async def help( ctx, amount = 1 ):
     emb3.add_field( name = '``{}coinflip``'.format( PREFIX ), value= 'Подбросить монетку.' )
     emb3.add_field( name = '``{}randcolor``'.format( PREFIX ), value= 'Рандомный цвет.' )
     emb3.add_field( name = '``{}achievement``'.format( PREFIX ), value= 'Сделать кастомную ачивку.' )
+    emb3.add_field(name = '``{}choice``'.format(PREFIX), value= 'Выбрать рандомных пользователей')
 
 
     embeds = [emb1, emb2, emb3]

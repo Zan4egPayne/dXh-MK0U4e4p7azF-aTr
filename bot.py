@@ -398,7 +398,7 @@ async def choice(ctx, users : int = None):
 			rand_user = random.choice(ctx.guild.members)
 			all_users = all_users+rand_user.mention+'\n'
 
-		await ctx.send("Ребята которых выбрал бот:\n" + all_users)
+		await ctx.send("Ребята которых выбрал бот:\n" + rand_user)
 	
 	
 

@@ -388,7 +388,6 @@ async def choice(ctx, users : int = None):
 	await ctx.message.delete()
 	if not users or users is None:
 		await ctx.send("Вы не ввели число участников!")
-
 	elif users > len(ctx.guild.members):
 		await ctx.send("Вы ввели слишком много участников!")
 
@@ -397,8 +396,6 @@ async def choice(ctx, users : int = None):
 		all_users = ''
 		for user in range(users):
 			rand_user = random.choice(ctx.guild.members)
-			role = discord.utils.get(ctx.guild.roles, name="Избранный")
-			await rand_user.add_roles(role)
 			all_users = all_users+rand_user.mention+'\n'
 
 		await ctx.send("Ребята которых выбрал бот:\n" + all_users)

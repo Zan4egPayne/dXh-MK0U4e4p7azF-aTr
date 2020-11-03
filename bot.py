@@ -385,20 +385,12 @@ async def tinyurl(ctx, url : str = None):
 @Bot.command(aliases = ["выбрать", "event", "ивент"])
 @commands.has_permissions(administrator = True)
 async def choice(ctx, users : int = None):
-	await ctx.message.delete()
-	if not users or users is None:
-		await ctx.send("Вы не ввели число участников!")
-	elif users > len(ctx.guild.members):
-		await ctx.send("Вы ввели слишком много участников!")
-
-	else:
-		global all_users
-		all_users = ''
-		for user in range(users):
-			rand_user = random.choice(ctx.guild.members)
-			all_users = all_users+rand_user.mention+'\n'
-
-		await ctx.send("Ребята которых выбрал бот:\n" + rand_user)
+global all_users
+all_users = ''
+for user in range(users):
+rand_user = random.choice(ctx.guild.members)
+all_users = rand_user.mention+'\n'
+await ctx.send("Ребята которых выбрал бот:\n" + all_users)
 	
 	
 

@@ -385,12 +385,12 @@ async def tinyurl(ctx, url : str = None):
 @Bot.command(aliases = ["выбрать", "event", "ивент"])
 @commands.has_permissions(administrator = True)
 async def choice(ctx, users : int = None):
-global all_users
-all_users = ''
-for user in range(users):
-rand_user = random.choice(ctx.guild.members)
-all_users = rand_user.mention+'\n'
-await ctx.send("Ребята которых выбрал бот:\n" + all_users)
+    global all_users
+    all_users = ''
+    for user in range(users):
+    rand_user = random.choice(ctx.guild.members)
+    all_users = rand_user.mention+'\n'
+    await ctx.send("Ребята которых выбрал бот:\n" + all_users)
 	
 	
 
